@@ -8,8 +8,15 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "requirejs"
+    "requirejs",
+    "import",
+    "ecmascript",
+    "convert"
   ],
   "author": "Juga Paazmaya <paazmaya@yahoo.com> (http://www.paazmaya.fi)",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "escodegen": "^1.8.0",
+    "espree": "^3.0.0"
+  }
 }
