@@ -1,0 +1,5 @@
+/**
+ *
+ */
+
+const tarita = require('../index');
