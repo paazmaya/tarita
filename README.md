@@ -16,13 +16,48 @@ During her childhood she was called by the name Tarita, hence the name of this p
 
 ## Getting started
 
+Install the `tarita` command line utility globally with [npm](https://www.npmjs.com/).
+Elevated privileges might be needed via `sudo`, depending on the platform. In most cases just:
+
 ```sh
 npm install --global tarita
 ```
 
+Please note that this tool requires the minimum [Node.js](https://nodejs.org/en/)
+version to be `4.2.0`, which is the Long Term Support (LTS) version.
+
+Basic use case would be to have a single file containing:
+
+```js
+```
+
+Which would be converted with the command:
 
 ```sh
 tarita input-file.js
+```
+
+The contents of that file would be after the conversion:
+
+```js
+```
+
+Please note that the given file will be overwritten, therefore make a backup beforehand.
+
+## Command line options
+
+The output of `tarita --help` pretty much covers all the options:
+
+```sh
+tarita [options] <file|directory>
+
+  -h, --help          Help and usage instructions
+  -V, --version       Version number
+  -v, --verbose       Verbose output, will print which file is currently being processed
+  -M, --match String  Regular expression for matching and filtering files - default: \.js$
+  -r, --recursive     Recursively search matching files
+
+Version 0.1.0
 ```
 
 ## Version history

@@ -18,22 +18,6 @@ const optionator = require('optionator');
 
 const tarita = require('../index');
 
-/**
- * Read the given file and return a string
- *
- * @param {string} filepath
- * @returns {string} Contents of the file
- */
-const readFile = (filepath) => fs.readFileSync(filepath, 'utf8');
-
-/**
- * Write the string contents to a file
- *
- * @param {string} filepath
- * @param {string} content
- */
-const writeFile = (filepath, content) => fs.writeFileSync(filepath, content, 'utf8');
-
 let pkg;
 
 try {
@@ -151,3 +135,9 @@ opts._.forEach((item) => {
 console.log(`Going to process total of ${fileList.length} files`);
 
 // Process then...
+fileList.forEach((filepath) => {
+  const input = fs.readFileSync(filepath, 'utf8');
+  const output = tarita(input);
+  fs.writeFileSync(filepath, output, 'utf8');
+});
+
