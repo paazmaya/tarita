@@ -2,6 +2,8 @@
 
 > Convert Require.js define to EcmaScript imports
 
+[![Dependency Status](https://gemnasium.com/paazmaya/tarita.svg)](https://gemnasium.com/paazmaya/tarita)
+
 Parsing to [AST](https://github.com/estree/estree) happens with
 [`espree`](https://github.com/eslint/espree) and generating code back to JavaScript with
 [`escodegen`](https://github.com/estools/escodegen).
@@ -29,6 +31,16 @@ version to be `4.2.0`, which is the Long Term Support (LTS) version.
 Basic use case would be to have a single file containing:
 
 ```js
+define([
+  'jquery'
+], function($) {
+
+  var SuperMan = {
+    power: $.fn.version
+  };
+
+  return SuperMan;
+});
 ```
 
 Which would be converted with the command:
@@ -40,6 +52,9 @@ tarita input-file.js
 The contents of that file would be after the conversion:
 
 ```js
+import $ from 'jquery';
+var SuperMan = { power: $.fn.version };
+export default 'SuperMan';
 ```
 
 Please note that the given file will be overwritten, unless the `--output-dir` option is not used.

@@ -109,8 +109,8 @@ const addAstExport = (name) => {
   return [{
     type: 'ExportDefaultDeclaration',
     declaration: {
-      type: 'Literal',
-      value: name
+      type: 'Identifier',
+      name: name
     }
   }];
 };
