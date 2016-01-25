@@ -4,14 +4,14 @@
  * tarita (たりた)
  * https://github.com/paazmaya/tarita
  *
- * Convert Require.js define to ES7 imports
+ * Convert Require.js define to EcmaScript imports
  *
  * Copyright (c) Juga Paazmaya <paazmaya@yahoo.com> (http://www.paazmaya.fi)
  * Licensed under the MIT license
  */
 'use strict';
 
-const fs = require('fs'),
+const fs = require('fs-extra'),
   path = require('path');
 
 const optionator = require('optionator');
@@ -54,6 +54,13 @@ const optsParser = optionator({
       type: 'Boolean',
       default: false,
       description: 'Verbose output, will print which file is currently being processed'
+    },
+    {
+      option: 'output-dir',
+      alias: 'o',
+      type: 'String',
+      default: '.',
+      description: 'Output directory, which by default overwrites the original files'
     },
     {
       option: 'match',
@@ -102,7 +109,7 @@ const matcher = new RegExp(opts.match);
  * Determine if the given existing filepath is a file or directory
  * and continue with filtering and recursive when needed.
  *
- * @param {string} filepath Resolved filepath that exists
+ * @param {string} filepath Relative filepath that exists
  * @param {bool} recurse Should a directory be entered
  * @returns {void}
  */
@@ -122,22 +129,32 @@ const handleFilepath = (filepath, recurse) => {
 
 opts._.forEach((item) => {
   console.log(item);
-  const filepath = path.resolve(item);
-  if (!fs.existsSync(filepath)) {
-    console.error(`File (${filepath}) not found`);
+  if (!fs.existsSync(item)) {
+    console.error(`File (${item}) not found`);
   }
   else {
     // It is ok to enter the directory on the first level
-    handleFilepath(filepath, true);
+    handleFilepath(item, true);
   }
 });
 
 console.log(`Going to process total of ${fileList.length} files`);
 
+const outdir = path.resolve(opts.outputDir);
+
+console.log(`Outputting to directory: ${outdir}`);
+
+if (!fs.existsSync(outdir)) {
+  fs.mkdirSync(outdir);
+}
+
 // Process then...
 fileList.forEach((filepath) => {
-  const input = fs.readFileSync(filepath, 'utf8');
-  const output = tarita(input);
-  fs.writeFileSync(filepath, output, 'utf8');
+  const input = fs.readFileSync(filepath, 'utf8'),
+    output = tarita(input),
+    outpath = path.join(outdir, filepath);
+
+  fs.ensureDirSync(path.dirname(outpath));
+  fs.writeFileSync(outpath, output, 'utf8');
 });
 

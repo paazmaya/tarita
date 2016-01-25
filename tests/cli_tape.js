@@ -2,7 +2,7 @@
  * tarita (たりた)
  * https://github.com/paazmaya/tarita
  *
- * Convert Require.js define to ES7 imports
+ * Convert Require.js define to EcmaScript imports
  *
  * Copyright (c) Juga Paazmaya <paazmaya@yahoo.com> (http://www.paazmaya.fi)
  * Licensed under the MIT license

@@ -1,6 +1,6 @@
 # tarita (たりた)
 
-> Convert Require.js define to ES7 imports
+> Convert Require.js define to EcmaScript imports
 
 Parsing to [AST](https://github.com/estree/estree) happens with
 [`espree`](https://github.com/eslint/espree) and generating code back to JavaScript with
@@ -42,7 +42,7 @@ The contents of that file would be after the conversion:
 ```js
 ```
 
-Please note that the given file will be overwritten, therefore make a backup beforehand.
+Please note that the given file will be overwritten, unless the `--output-dir` option is not used.
 
 ## Command line options
 
@@ -51,23 +51,25 @@ The output of `tarita --help` pretty much covers all the options:
 ```sh
 tarita [options] <file|directory>
 
-  -h, --help          Help and usage instructions
-  -V, --version       Version number
-  -v, --verbose       Verbose output, will print which file is currently being processed
-  -M, --match String  Regular expression for matching and filtering files - default: \.js$
-  -r, --recursive     Recursively search matching files
+  -h, --help               Help and usage instructions
+  -V, --version            Version number
+  -v, --verbose            Verbose output, will print which file is currently being processed
+  -o, --output-dir String  Output directory, which by default overwrites the original files -
+                           default: .
+  -M, --match String       Regular expression for matching and filtering files - default: \.js$
+  -r, --recursive          Recursively search matching files
 
 Version 0.1.0
 ```
 
 ## Version history
 
-* `v0.1.0` (2016-01-22)
+* `v0.1.0` (2016-01-25)
     - Initial conversion ability from a `define` to `import` and `export default`
 
 
 ## License
 
-Copyright (c) [Juga Paazmaya](http://paazmaya.fi) <paazmaya@yahoo.com>
+Copyright (c) [Juga Paazmaya](http://www.paazmaya.fi) <paazmaya@yahoo.com>
 
 Licensed under [the MIT license](./LICENSE).

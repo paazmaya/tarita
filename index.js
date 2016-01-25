@@ -2,7 +2,7 @@
  * tarita (たりた)
  * https://github.com/paazmaya/tarita
  *
- * Convert Require.js define to ES7 imports
+ * Convert Require.js define to EcmaScript imports
  *
  * Copyright (c) Juga Paazmaya <paazmaya@yahoo.com> (http://www.paazmaya.fi)
  * Licensed under the MIT license
@@ -59,7 +59,7 @@ const getNameAndContents = (body) => {
   const nameIndex = body.findIndex((item) => {
     return item.type && item.type === 'ReturnStatement';
   });
-  if (typeof nameIndex === 'number') {
+  if (typeof nameIndex === 'number' && nameIndex > -1) {
     returnStatement = body[nameIndex].argument.name;
     body.splice(nameIndex, 1);
   }
@@ -129,16 +129,19 @@ const process = (ast) => {
     const impr = defineToImports(ast.body[0].expression);
 
     if (ast.body[0].expression.arguments[1].body.type === 'BlockStatement') {
+      let outputAst = [];
 
       // Main function body. Usually ends with ReturnStatement
 
       const divided = getNameAndContents(ast.body[0].expression.arguments[1].body.body);
 
       const importList = addAstImports(impr);
+      outputAst = importList.concat(divided.contents);
 
-      const exportName = addAstExport(divided.defaultExportName);
-
-      const outputAst = importList.concat(divided.contents, exportName);
+      if (divided.defaultExportName) {
+        const exportName = addAstExport(divided.defaultExportName);
+        outputAst = outputAst.concat(exportName);
+      }
       ast.body = outputAst;
 
       ast.sourceType = 'module';

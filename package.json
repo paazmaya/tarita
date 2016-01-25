@@ -1,12 +1,12 @@
 {
   "name": "tarita",
   "version": "0.1.0",
-  "description": "Convert Require.js define to ES7 imports",
+  "description": "Convert Require.js define to EcmaScript imports",
   "main": "index.js",
   "bin": "bin/tarita.js",
-  "homepage": "https://github.com/paazmaya/shigehachi",
+  "homepage": "https://github.com/paazmaya/tarita",
   "scripts": {
-    "lint": "eslint -c .eslintrc.json index.js bin/shigehachi.js",
+    "lint": "eslint -c .eslintrc.json index.js bin/tarita.js",
     "test": "node tests/index_tape.js && node tests/cli_tape.js && rm -rf tmp",
     "coverage": "istanbul cover tests/index_tape.js && codecov"
   },
@@ -18,7 +18,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/paazmaya/shigehachi.git"
+    "url": "https://github.com/paazmaya/tarita.git"
   },
   "author": "Juga Paazmaya <paazmaya@yahoo.com> (http://www.paazmaya.fi)",
   "license": "MIT",
@@ -29,7 +29,7 @@
     "README.md"
   ],
   "bugs": {
-    "url": "https://github.com/paazmaya/shigehachi/issues"
+    "url": "https://github.com/paazmaya/tarita/issues"
   },
   "engines": {
     "node": ">=4.2.0"
@@ -37,6 +37,7 @@
   "dependencies": {
     "escodegen": "^1.8.0",
     "espree": "^3.0.0",
+    "fs-extra": "^0.26.4",
     "optionator": "^0.8.1"
   },
   "devDependencies": {
