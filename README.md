@@ -3,6 +3,8 @@
 > Convert Require.js define to EcmaScript imports
 
 [![Dependency Status](https://gemnasium.com/paazmaya/tarita.svg)](https://gemnasium.com/paazmaya/tarita)
+[![Build Status](https://travis-ci.org/paazmaya/tarita.svg?branch=master)](https://travis-ci.org/paazmaya/tarita)
+[![codecov.io](https://codecov.io/github/paazmaya/tarita/coverage.svg?branch=master)](https://codecov.io/github/paazmaya/tarita?branch=master)
 
 Parsing to [AST](https://github.com/estree/estree) happens with
 [`espree`](https://github.com/eslint/espree) and generating code back to JavaScript with
@@ -54,7 +56,7 @@ The contents of that file would be after the conversion:
 ```js
 import $ from 'jquery';
 var SuperMan = { power: $.fn.version };
-export default 'SuperMan';
+export default SuperMan;
 ```
 
 Please note that the given file will be overwritten, unless the `--output-dir` option is not used.
@@ -74,11 +76,13 @@ tarita [options] <file|directory>
   -M, --match String       Regular expression for matching and filtering files - default: \.js$
   -r, --recursive          Recursively search matching files
 
-Version 0.1.0
+Version 0.2.0
 ```
 
 ## Version history
 
+* `v0.2.0` (2016-01-)
+    - Unit testing and automation for it. Using [`nyc`](https://www.npmjs.com/package/nyc) for code coverage
 * `v0.1.0` (2016-01-25)
     - Initial conversion ability from a `define` to `import` and `export default`
 
