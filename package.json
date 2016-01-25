@@ -8,7 +8,7 @@
   "scripts": {
     "lint": "eslint -c .eslintrc.json index.js bin/tarita.js",
     "test": "node tests/index_tape.js && node tests/cli_tape.js && rm -rf tmp",
-    "coverage": "nyc npm test && nyc report --reporter=text-lcov && codecov"
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov | codecov"
   },
   "keywords": [
     "requirejs",
