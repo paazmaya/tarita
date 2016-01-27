@@ -13,7 +13,7 @@
 const tape = require('tape'),
   tarita = require('../index');
 
-tape('function is exported', function (test) {
+tape('function is exported', (test) => {
   test.plan(1);
 
   test.equal(typeof tarita, 'function');

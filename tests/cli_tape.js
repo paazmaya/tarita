@@ -19,29 +19,38 @@ const tape = require('tape');
 const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json'), 'utf8')),
   cli = 'bin/tarita.js';
 
-tape('cli should output version number', function (test) {
+tape('cli should output version number', (test) => {
   test.plan(1);
 
-  execFile('node', [cli, '-V'], null, function (err, stdout) {
+  execFile('node', [cli, '-V'], null, (err, stdout) => {
     test.equals(stdout.trim(), pkg.version, 'Version is the same as in package.json');
   });
 
 });
 
-tape('cli should output help by default', function (test) {
+tape('cli should output help by default', (test) => {
   test.plan(1);
 
-  execFile('node', [cli], null, function (err, stdout) {
+  execFile('node', [cli], null, (err, stdout) => {
     test.ok(stdout.trim().indexOf('tarita [options] <file|directory>') !== -1, 'Help appeared');
   });
 
 });
 
-tape('cli should create folders for output', function (test) {
+tape('cli should create folder for output', (test) => {
   test.plan(1);
 
-  execFile('node', [cli, '-o', 'tmp', 'tests/fixtures'], null, function (err, stdout) {
+  execFile('node', [cli, '-o', 'tmp', 'tests/fixtures'], null, (err, stdout) => {
     test.ok(fs.existsSync('tmp'), 'Temporary folder exists');
+  });
+
+});
+
+tape('cli should use verbose messages', (test) => {
+  test.plan(1);
+
+  execFile('node', [cli, '-v', 'not-here'], null, (err, stdout) => {
+    test.ok(stdout.trim().indexOf('Going to process total of') !== -1, 'Verbose text seen');
   });
 
 });

@@ -128,7 +128,6 @@ const handleFilepath = (filepath, recurse) => {
 };
 
 opts._.forEach((item) => {
-  console.log(item);
   if (!fs.existsSync(item)) {
     console.error(`File (${item}) not found`);
   }
@@ -138,11 +137,15 @@ opts._.forEach((item) => {
   }
 });
 
-console.log(`Going to process total of ${fileList.length} files`);
+if (opts.verbose) {
+  console.log(`Going to process total of ${fileList.length} files`);
+}
 
 const outdir = path.resolve(opts.outputDir);
 
-console.log(`Outputting to directory: ${outdir}`);
+if (opts.verbose) {
+  console.log(`Outputting to directory: ${outdir}`);
+}
 
 if (!fs.existsSync(outdir)) {
   fs.mkdirSync(outdir);
@@ -150,6 +153,10 @@ if (!fs.existsSync(outdir)) {
 
 // Process then...
 fileList.forEach((filepath) => {
+  if (opts.verbose) {
+    console.log(`Processing file ${filepath}`);
+  }
+
   const input = fs.readFileSync(filepath, 'utf8'),
     output = tarita(input),
     outpath = path.join(outdir, filepath);
