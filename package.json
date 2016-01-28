@@ -1,6 +1,6 @@
 {
   "name": "tarita",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Convert Require.js define to EcmaScript imports",
   "main": "index.js",
   "bin": "bin/tarita.js",
@@ -41,6 +41,7 @@
     "optionator": "^0.8.1"
   },
   "devDependencies": {
+    "babel-eslint": "^5.0.0-beta6",
     "codecov": "^1.0.1",
     "eslint": "^1.10.3",
     "nyc": "^5.3.0",
