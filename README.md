@@ -76,11 +76,13 @@ tarita [options] <file|directory>
   -M, --match String       Regular expression for matching and filtering files - default: \.js$
   -r, --recursive          Recursively search matching files
 
-Version 0.3.0
+Version 0.4.0
 ```
 
 ## Version history
 
+* `v0.4.0` (2016-01-28)
+    - Do not break the existing structure outside `define` statement
 * `v0.3.0` (2016-01-28)
     - Also convert cases when there are no dependencies or there is only dependencies
     - Preserve comments

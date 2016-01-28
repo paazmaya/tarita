@@ -1,6 +1,6 @@
 {
   "name": "tarita",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Convert Require.js define to EcmaScript imports",
   "main": "index.js",
   "bin": "bin/tarita.js",

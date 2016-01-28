@@ -37,6 +37,15 @@ tape('cli should output help by default', (test) => {
 
 });
 
+tape('cli should output help when requested', (test) => {
+  test.plan(1);
+
+  execFile('node', [cli, '--help'], null, (err, stdout) => {
+    test.ok(stdout.trim().indexOf('tarita [options] <file|directory>') !== -1, 'Help appeared');
+  });
+
+});
+
 tape('cli should create folder for output', (test) => {
   test.plan(1);
 

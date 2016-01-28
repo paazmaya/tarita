@@ -22,41 +22,38 @@ const espree = require('espree'),
  */
 const defineToImports = (expression) => {
 
-  if (expression.type === 'CallExpression') {
-    const imports = {};
+  console.log('callee.name: ' + expression.callee.name); // Should be define or require
 
-    console.log('callee.name: ' + expression.callee.name); // Should be define or require
+  const nameList = expression.arguments.find((item) => {
+    return item.type === 'ArrayExpression';
+  });
 
-    const nameList = expression.arguments.find((item) => {
-      return item.type === 'ArrayExpression';
+  const variableList = expression.arguments.find((item) => {
+    return item.type === 'FunctionExpression';
+  });
+
+  if (nameList) {
+    const identifiers = nameList.elements.map((item) => {
+      return item.value;
     });
 
-    const variableList = expression.arguments.find((item) => {
-      return item.type === 'FunctionExpression';
-    });
+    // the first item should be array of file identifiers, when more than one
+    // the second a function
 
-    if (nameList) {
-      const identifiers = nameList.elements.map((item) => {
-        return item.value;
-      });
-
-      // the first item should be array of file identifiers, when more than one
-      // the second a function
-
-      let locals;
-      if (variableList) {
-        locals = variableList.params.map((item) => item.name);
-      }
-      else {
-        locals = nameList.elements.map((item) => item.value);
-      }
-
-      // FunctionExpression params are then mapped to the identifiers
-      locals.forEach((item, index) => {
-        imports[item] = identifiers[index];
-      });
-
+    let locals;
+    if (variableList) {
+      locals = variableList.params.map((item) => item.name);
     }
+    else {
+      locals = nameList.elements.map((item) => item.value);
+    }
+
+    // FunctionExpression params are then mapped to the identifiers
+    const imports = {};
+    locals.forEach((item, index) => {
+      imports[item] = identifiers[index];
+    });
+
     return imports;
   }
 
@@ -135,50 +132,75 @@ const addAstExport = (ast) => {
 /**
  * Process the AST in the hope of finding expression at the top
  *
+ * @param {object} ast AST for the ExpressionStatement that has passed the requirements
+ * @returns {array} Possibly modified AST as a list
+ */
+const processExpression = (ast) => {
+  let outputAst = [];
+
+  const impr = defineToImports(ast);
+  const importList = addAstImports(impr);
+  outputAst = outputAst.concat(importList);
+
+  // Get the first block statement
+  const blockArgument = ast.arguments.find((item) => {
+    return item.body && item.body.type === 'BlockStatement';
+  });
+
+  if (blockArgument) {
+
+    // Main function body. Usually ends with ReturnStatement
+
+    const divided = getNameAndContents(blockArgument.body.body);
+
+    outputAst = outputAst.concat(divided.contents);
+
+    if (divided.defaultExport) {
+      const exportName = addAstExport(divided.defaultExport);
+      outputAst = outputAst.concat(exportName);
+    }
+  }
+
+  return outputAst;
+};
+
+/**
+ * Process the AST in the hope of finding expression at the top
+ *
  * @param {object} ast AST
  * @returns {object} Possibly modified AST
  */
 const process = (ast) => {
 
-  // body is array, which is require.js format should contain only one item
+  // Please note that 'use strict'; is an expression statement,
+  // so find the first expression statement that contains CallExpression
+  // of which the name is "define" or "require"
+  const bodyIndex = ast.body.findIndex((item) => {
+    return item.type === 'ExpressionStatement' &&
+      item.expression && item.expression.type === 'CallExpression' &&
+      item.expression.callee && item.expression.callee.name &&
+      item.expression.callee.name.match(/(define|require)/);
+  });
 
-  if (ast.body.length > 0 && ast.body[0].type === 'ExpressionStatement') {
-    let outputAst = [];
+  if (typeof bodyIndex === 'number' && bodyIndex !== -1) {
+    const body = processExpression(ast.body[bodyIndex].expression);
+    body.unshift(bodyIndex, 1); // Position, remove count
 
-    const impr = defineToImports(ast.body[0].expression);
-    const importList = addAstImports(impr);
-    outputAst = outputAst.concat(importList);
-
-    // Get the first block statement
-    const blockArgument = ast.body[0].expression.arguments.find((item) => {
-      return item.body && item.body.type === 'BlockStatement';
-    });
-
-    if (blockArgument) {
-
-      // Main function body. Usually ends with ReturnStatement
-
-      const divided = getNameAndContents(blockArgument.body.body);
-
-      outputAst = outputAst.concat(divided.contents);
-
-      if (divided.defaultExport) {
-        const exportName = addAstExport(divided.defaultExport);
-        outputAst = outputAst.concat(exportName);
-      }
-    }
-
-    ast.body = outputAst;
+    // Remove the previous body item and replace with others
+    Array.prototype.splice.apply(ast.body, body);
 
     ast.sourceType = 'module';
-
   }
+
   return ast;
 };
 
 module.exports = (input) => {
   let ast = espree.parse(input, {
     attachComment: true,
+    comment: true,
+    tolerant: true,
+    loc: true,
     ecmaVersion: 6,
     sourceType: 'module'
   });
