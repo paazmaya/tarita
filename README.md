@@ -81,7 +81,7 @@ Version 0.2.0
 
 ## Version history
 
-* `v0.2.0` (2016-01-)
+* `v0.2.0` (2016-01-28)
     - Unit testing and automation for it. Using [`nyc`](https://www.npmjs.com/package/nyc) for code coverage
     - Anything that was originally `return` should be the `export default`
 * `v0.1.0` (2016-01-25)
