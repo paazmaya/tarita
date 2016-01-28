@@ -47,10 +47,45 @@ tape('cli should create folder for output', (test) => {
 });
 
 tape('cli should use verbose messages', (test) => {
-  test.plan(1);
+  test.plan(2);
 
   execFile('node', [cli, '-v', 'not-here'], null, (err, stdout) => {
-    test.ok(stdout.trim().indexOf('Going to process total of') !== -1, 'Verbose text seen');
+    test.ok(stdout.trim().indexOf('Going to process total of') !== -1, 'Verbose text seen for total');
+    test.ok(stdout.trim().indexOf('Outputting to directory:') !== -1, 'Verbose text seen for output directory');
   });
 
 });
+
+tape('cli should show current file when verbose', (test) => {
+  test.plan(1);
+
+  execFile('node', [cli, '-v', '-o', 'tmp', 'tests/fixtures/single-item.js'], null, (err, stdout) => {
+    test.ok(stdout.trim().indexOf('Processing file ') !== -1, 'Verbose text seen');
+  });
+
+});
+
+tape('cli should complain when package.json is gone', (test) => {
+  test.plan(1);
+
+  const nameFrom = 'package.json',
+    nameTo = '_package.json';
+
+  fs.renameSync(nameFrom, nameTo);
+
+  execFile('node', [cli, '-h'], null, (err, stdout, stderr) => {
+    test.ok(stderr.trim().indexOf('Could not read') !== -1, 'Complaint seen');
+    fs.renameSync(nameTo, nameFrom);
+  });
+
+});
+
+tape('cli should complain when non existing option used', (test) => {
+  test.plan(1);
+
+  execFile('node', [cli, '-g'], null, (err, stdout, stderr) => {
+    test.ok(stderr.trim().indexOf('Invalid option ') !== -1, 'Complaint seen');
+  });
+
+});
+
