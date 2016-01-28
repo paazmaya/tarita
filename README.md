@@ -83,6 +83,7 @@ Version 0.2.0
 
 * `v0.2.0` (2016-01-)
     - Unit testing and automation for it. Using [`nyc`](https://www.npmjs.com/package/nyc) for code coverage
+    - Anything that was originally `return` should be the `export default`
 * `v0.1.0` (2016-01-25)
     - Initial conversion ability from a `define` to `import` and `export default`
 

@@ -49,24 +49,24 @@ const defineToImports = (expression) => {
  * Search for the return statement from the end of the main function body
  *
  * @param {array} body Contents of the main function body
- * @returns {array} Name of the function that should be exported and rest of the body
+ * @returns {object} Name of the function that should be exported and rest of the body
  */
 const getNameAndContents = (body) => {
   // Starting from end, look for ReturnStatement
 
-  let returnStatement = false;
+  let returnArgument = false;
   body.reverse();
   const nameIndex = body.findIndex((item) => {
     return item.type && item.type === 'ReturnStatement';
   });
   if (typeof nameIndex === 'number' && nameIndex > -1) {
-    returnStatement = body[nameIndex].argument.name;
+    returnArgument = body[nameIndex].argument;
     body.splice(nameIndex, 1);
   }
   body.reverse();
 
   return {
-    defaultExportName: returnStatement,
+    defaultExport: returnArgument,
     contents: body
   };
 };
@@ -102,16 +102,13 @@ const addAstImports = (imports) => {
 /**
  * Create AST for default export declaration
  *
- * @param {string} name Name of the exported item
+ * @param {object} ast AST of the returned argument
  * @returns {array} AST for default export declaration
  */
-const addAstExport = (name) => {
+const addAstExport = (ast) => {
   return [{
     type: 'ExportDefaultDeclaration',
-    declaration: {
-      type: 'Identifier',
-      name: name
-    }
+    declaration: ast
   }];
 };
 
@@ -138,8 +135,8 @@ const process = (ast) => {
       const importList = addAstImports(impr);
       outputAst = importList.concat(divided.contents);
 
-      if (divided.defaultExportName) {
-        const exportName = addAstExport(divided.defaultExportName);
+      if (divided.defaultExport) {
+        const exportName = addAstExport(divided.defaultExport);
         outputAst = outputAst.concat(exportName);
       }
       ast.body = outputAst;
