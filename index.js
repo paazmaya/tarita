@@ -12,28 +12,44 @@
 const espree = require('espree'),
   escodegen = require('escodegen');
 
-
 /**
- * Read the values used in define array and map to the function arguments
+ * Read the values used in define array and map to the function arguments.
+ * There might be cases when only the array is defined, without the function,
+ * since the files that are converted might be in the middle of development.
  *
  * @param {object} expression Top level expression object
- * @returns {object} Map to be used for defining import statements
+ * @returns {object|bool} Map to be used for defining import statements
  */
 const defineToImports = (expression) => {
-  const imports = {};
 
   if (expression.type === 'CallExpression') {
+    const imports = {};
+
     console.log('callee.name: ' + expression.callee.name); // Should be define or require
 
-    if (expression.arguments[0].type === 'ArrayExpression') {
-      const identifiers = expression.arguments[0].elements.map((item) => {
+    const nameList = expression.arguments.find((item) => {
+      return item.type === 'ArrayExpression';
+    });
+
+    const variableList = expression.arguments.find((item) => {
+      return item.type === 'FunctionExpression';
+    });
+
+    if (nameList) {
+      const identifiers = nameList.elements.map((item) => {
         return item.value;
       });
 
-      // the first item should be array of file identifiers
+      // the first item should be array of file identifiers, when more than one
       // the second a function
 
-      const locals = expression.arguments[1].params.map((item) => item.name);
+      let locals;
+      if (variableList) {
+        locals = variableList.params.map((item) => item.name);
+      }
+      else {
+        locals = nameList.elements.map((item) => item.value);
+      }
 
       // FunctionExpression params are then mapped to the identifiers
       locals.forEach((item, index) => {
@@ -41,8 +57,10 @@ const defineToImports = (expression) => {
       });
 
     }
+    return imports;
   }
-  return imports;
+
+  return false;
 };
 
 /**
@@ -56,9 +74,11 @@ const getNameAndContents = (body) => {
 
   let returnArgument = false;
   body.reverse();
+
   const nameIndex = body.findIndex((item) => {
     return item.type && item.type === 'ReturnStatement';
   });
+
   if (typeof nameIndex === 'number' && nameIndex > -1) {
     returnArgument = body[nameIndex].argument;
     body.splice(nameIndex, 1);
@@ -122,27 +142,35 @@ const process = (ast) => {
 
   // body is array, which is require.js format should contain only one item
 
-  if (ast.body[0].type === 'ExpressionStatement') {
-    const impr = defineToImports(ast.body[0].expression);
+  if (ast.body.length > 0 && ast.body[0].type === 'ExpressionStatement') {
+    let outputAst = [];
 
-    if (ast.body[0].expression.arguments[1].body.type === 'BlockStatement') {
-      let outputAst = [];
+    const impr = defineToImports(ast.body[0].expression);
+    const importList = addAstImports(impr);
+    outputAst = outputAst.concat(importList);
+
+    // Get the first block statement
+    const blockArgument = ast.body[0].expression.arguments.find((item) => {
+      return item.body && item.body.type === 'BlockStatement';
+    });
+
+    if (blockArgument) {
 
       // Main function body. Usually ends with ReturnStatement
 
-      const divided = getNameAndContents(ast.body[0].expression.arguments[1].body.body);
+      const divided = getNameAndContents(blockArgument.body.body);
 
-      const importList = addAstImports(impr);
-      outputAst = importList.concat(divided.contents);
+      outputAst = outputAst.concat(divided.contents);
 
       if (divided.defaultExport) {
         const exportName = addAstExport(divided.defaultExport);
         outputAst = outputAst.concat(exportName);
       }
-      ast.body = outputAst;
-
-      ast.sourceType = 'module';
     }
+
+    ast.body = outputAst;
+
+    ast.sourceType = 'module';
 
   }
   return ast;
@@ -150,12 +178,23 @@ const process = (ast) => {
 
 module.exports = (input) => {
   let ast = espree.parse(input, {
+    attachComment: true,
     ecmaVersion: 6,
     sourceType: 'module'
   });
 
   ast = process(ast);
 
-  const output = escodegen.generate(ast);
-  return output;
+  return escodegen.generate(ast, {
+    comment: true,
+    format: {
+      indent: {
+        style: '  ',
+        base: 0,
+        adjustMultilineComment: true
+      },
+      quotes: 'single',
+      preserveBlankLines: true
+    }
+  });
 };

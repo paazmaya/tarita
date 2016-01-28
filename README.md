@@ -76,11 +76,14 @@ tarita [options] <file|directory>
   -M, --match String       Regular expression for matching and filtering files - default: \.js$
   -r, --recursive          Recursively search matching files
 
-Version 0.2.0
+Version 0.3.0
 ```
 
 ## Version history
 
+* `v0.3.0` (2016-01-28)
+    - Also convert cases when there are no dependencies or there is only dependencies
+    - Preserve comments
 * `v0.2.0` (2016-01-28)
     - Unit testing and automation for it. Using [`nyc`](https://www.npmjs.com/package/nyc) for code coverage
     - Anything that was originally `return` should be the `export default`
