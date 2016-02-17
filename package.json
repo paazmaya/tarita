@@ -41,9 +41,9 @@
     "optionator": "^0.8.1"
   },
   "devDependencies": {
-    "babel-eslint": "^5.0.0-beta6",
+    "babel-eslint": "^5.0.0",
     "codecov": "^1.0.1",
-    "eslint": "^2.0.0",
+    "eslint": "^2.1.0",
     "nyc": "^5.6.0",
     "tape": "^4.4.0"
   }
