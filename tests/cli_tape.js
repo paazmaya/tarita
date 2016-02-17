@@ -98,3 +98,12 @@ tape('cli should complain when non existing option used', (test) => {
 
 });
 
+tape('cli should use matches when given', (test) => {
+  test.plan(1);
+
+  execFile('node', [cli, '-o', 'tmp', '-M', '\\.jsx$', 'tests/fixtures'], null, (err, stdout) => {
+    test.ok(stdout.trim().indexOf('/react-component.jsx') !== -1, 'React component file seen via verbosity');
+  });
+
+});
+

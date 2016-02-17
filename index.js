@@ -167,7 +167,7 @@ const processExpression = (ast) => {
 /**
  * Process the AST in the hope of finding expression at the top
  *
- * @param {object} ast AST
+ * @param {object} ast AST program
  * @returns {object} Possibly modified AST
  */
 const process = (ast) => {
@@ -202,7 +202,10 @@ module.exports = (input) => {
     tolerant: true,
     loc: true,
     ecmaVersion: 6,
-    sourceType: 'module'
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true
+    }
   });
 
   ast = process(ast);
