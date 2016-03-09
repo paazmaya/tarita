@@ -4,7 +4,7 @@
  *
  * Convert Require.js define to EcmaScript imports
  *
- * Copyright (c) Juga Paazmaya <paazmaya@yahoo.com> (http://www.paazmaya.fi)
+ * Copyright (c) Juga Paazmaya <paazmaya@yahoo.com> (http://paazmaya.fi)
  * Licensed under the MIT license
  */
 
