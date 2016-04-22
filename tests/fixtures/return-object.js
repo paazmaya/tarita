@@ -14,6 +14,7 @@ define([
 
   return {
     jqueryVer: $.fn.version,
-    offers: new GreenLantern()
+    offers: new GreenLantern(),
+    isMovieOk: true
   };
 });
