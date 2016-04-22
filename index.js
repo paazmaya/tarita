@@ -10,6 +10,7 @@
 'use strict';
 
 const espree = require('espree'),
+  // cst = require('cst'),
   escodegen = require('escodegen');
 
 /**
@@ -195,8 +196,14 @@ const process = (ast) => {
   return ast;
 };
 
-module.exports = (input) => {
-  let ast = espree.parse(input, {
+/**
+ * Parse the given input via espree parser
+ *
+ * @param  {string} input JavaScript code
+ * @return {object}       AST returned from espree
+ */
+const parseEspree = (input) => {
+  return espree.parse(input, {
     attachComment: true,
     comment: true,
     tolerant: true,
@@ -207,9 +214,46 @@ module.exports = (input) => {
       jsx: true
     }
   });
+};
 
-  ast = process(ast);
+/**
+ * Parse the given input via cst parser
+ *
+ * @param  {string} input JavaScript code
+ * @return {object}       AST returned from espree
+ * @see https://github.com/cst/cst/wiki/Parser-options
+ */
+/*const parseCst = (input) => {
+  const parser = new cst.Parser({
+    sourceType: 'module',
+    strictMode: true,
+    ecmaVersion: 6,
+    experimentalFeatures: {
+      'es7.asyncFunctions': true,
+      'es7.classProperties': true,
+      'es7.comprehensions': true,
+      'es7.decorators': true,
+      'es7.doExpressions': true,
+      'es7.exponentiationOperator': true,
+      'es7.exportExtensions': true,
+      'es7.functionBind': true,
+      'es7.objectRestSpread': true,
+      'es7.trailingFunctionCommas': true
+    },
+    languageExtensions: {
+      jsx: true
+    }
+  });
+  return parser(input);
+};*/
 
+/**
+ * Generate JavaScript code from the input AST via escodegen
+ *
+ * @param  {object} ast AST
+ * @return {string}     JavaScript code
+ */
+const generateEscodegen = (ast) => {
   return escodegen.generate(ast, {
     comment: true,
     format: {
@@ -222,4 +266,34 @@ module.exports = (input) => {
       preserveBlankLines: true
     }
   });
+};
+
+/**
+ * Generate JavaScript code from the input AST via cst
+ *
+ * @param  {object} ast AST
+ * @return {string}     JavaScript code
+ */
+/*const generateCst = (ast) => {
+  return escodegen.generate(ast, {
+    comment: true,
+    format: {
+      indent: {
+        style: '  ',
+        base: 0,
+        adjustMultilineComment: true
+      },
+      quotes: 'single',
+      preserveBlankLines: true
+    }
+  });
+};*/
+
+module.exports = (input) => {
+  let ast = parseEspree(input);
+  // let ast = parseCst(input);
+
+  ast = process(ast);
+
+  return generateEscodegen(ast);
 };

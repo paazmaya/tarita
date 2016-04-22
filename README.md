@@ -10,6 +10,10 @@ Parsing to [AST](https://github.com/estree/estree) happens with
 [`espree`](https://github.com/eslint/espree) and generating code back to JavaScript with
 [`escodegen`](https://github.com/estools/escodegen).
 
+Next release will be using the [JavaScript Concrete Syntax Tree](https://github.com/cst/cst) that should make the conversion a bit simpler.
+
+## Background for the project name
+
 The name of the project is for honouring the legacy of
 [Mrs Sonobe Hideo (園部 秀雄)](https://ja.wikipedia.org/wiki/%E5%9C%92%E9%83%A8%E7%A7%80%E9%9B%84),
 who was the 15th head master of
@@ -87,7 +91,8 @@ Version 0.4.0
     - Also convert cases when there are no dependencies or there is only dependencies
     - Preserve comments
 * `v0.2.0` (2016-01-28)
-    - Unit testing and automation for it. Using [`nyc`](https://www.npmjs.com/package/nyc) for code coverage
+    - Unit testing and automation for it
+    - Using [`nyc`](https://www.npmjs.com/package/nyc) for code coverage
     - Anything that was originally `return` should be the `export default`
 * `v0.1.0` (2016-01-25)
     - Initial conversion ability from a `define` to `import` and `export default`
