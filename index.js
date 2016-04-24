@@ -231,19 +231,19 @@ const parseCst = (input) => {
     strictMode: true,
     ecmaVersion: 6,
     experimentalFeatures: {
-      'flow': true,
-      'jsx': true,
-      'asyncFunctions': true,
-      'asyncGenerators': true,
-      'classConstructorCall': true,
-      'classProperties': true,
-      'decorators': true,
-      'doExpressions': true,
-      'exponentiationOperator': true,
-      'exportExtensions': true,
-      'functionBind': true,
-      'objectRestSpread': true,
-      'trailingFunctionCommas': true
+      flow: true,
+      jsx: true,
+      asyncFunctions: true,
+      asyncGenerators: true,
+      classConstructorCall: true,
+      classProperties: true,
+      decorators: true,
+      doExpressions: true,
+      exponentiationOperator: true,
+      exportExtensions: true,
+      functionBind: true,
+      objectRestSpread: true,
+      trailingFunctionCommas: true
     },
     languageExtensions: {
       jsx: true
