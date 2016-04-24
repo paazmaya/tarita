@@ -1,4 +1,9 @@
-sudo: false
+sudo: required
+dist: trusty
+
+# Those two above are for getting most recent Ubuntu at Travis
+# https://docs.travis-ci.com/user/ci-environment/
+
 language: node_js
 node_js:
   - "4.2"
