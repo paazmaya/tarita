@@ -7,7 +7,7 @@
   "homepage": "https://github.com/paazmaya/tarita",
   "scripts": {
     "lint": "eslint -c .eslintrc.json index.js bin/tarita.js",
-    "test": "node tests/index_tape.js && node tests/cli_tape.js && rm -rf tmp",
+    "test": "node tests/index_tape.js && node tests/cli_tape.js ",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov > coverage.lcov | codecov"
   },
   "keywords": [

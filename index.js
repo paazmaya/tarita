@@ -10,7 +10,7 @@
 'use strict';
 
 const espree = require('espree'),
-  // cst = require('cst'),
+  cst = require('cst'),
   escodegen = require('escodegen');
 
 /**
@@ -23,7 +23,9 @@ const espree = require('espree'),
  */
 const defineToImports = (expression) => {
 
-  console.log('callee.name: ' + expression.callee.name); // Should be define or require
+  if (this.options.verbose) {
+    console.log('callee.name: ' + expression.callee.name); // Should be define or require
+  }
 
   const nameList = expression.arguments.find((item) => {
     return item.type === 'ArrayExpression';
@@ -223,29 +225,32 @@ const parseEspree = (input) => {
  * @return {object}       AST returned from espree
  * @see https://github.com/cst/cst/wiki/Parser-options
  */
-/*const parseCst = (input) => {
+const parseCst = (input) => {
   const parser = new cst.Parser({
     sourceType: 'module',
     strictMode: true,
     ecmaVersion: 6,
     experimentalFeatures: {
-      'es7.asyncFunctions': true,
-      'es7.classProperties': true,
-      'es7.comprehensions': true,
-      'es7.decorators': true,
-      'es7.doExpressions': true,
-      'es7.exponentiationOperator': true,
-      'es7.exportExtensions': true,
-      'es7.functionBind': true,
-      'es7.objectRestSpread': true,
-      'es7.trailingFunctionCommas': true
+      'flow': true,
+      'jsx': true,
+      'asyncFunctions': true,
+      'asyncGenerators': true,
+      'classConstructorCall': true,
+      'classProperties': true,
+      'decorators': true,
+      'doExpressions': true,
+      'exponentiationOperator': true,
+      'exportExtensions': true,
+      'functionBind': true,
+      'objectRestSpread': true,
+      'trailingFunctionCommas': true
     },
     languageExtensions: {
       jsx: true
     }
   });
-  return parser(input);
-};*/
+  return parser.parse(input);
+};
 
 /**
  * Generate JavaScript code from the input AST via escodegen
@@ -274,26 +279,37 @@ const generateEscodegen = (ast) => {
  * @param  {object} ast AST
  * @return {string}     JavaScript code
  */
-/*const generateCst = (ast) => {
-  return escodegen.generate(ast, {
-    comment: true,
-    format: {
-      indent: {
-        style: '  ',
-        base: 0,
-        adjustMultilineComment: true
-      },
-      quotes: 'single',
-      preserveBlankLines: true
-    }
-  });
-};*/
+const generateCst = (ast) => {
+  return ast.getSourceCode();
+};
 
-module.exports = (input) => {
+module.exports = (input, options) => {
+  this.options = options || {};
+  this.options.verbose = typeof this.options.verbose === 'boolean' ?
+    this.options.verbose : false;
+
   let ast = parseEspree(input);
-  // let ast = parseCst(input);
+  //let ast = parseCst(input);
 
   ast = process(ast);
 
-  return generateEscodegen(ast);
+  try {
+    return generateEscodegen(ast);
+  }
+  catch (error) {
+    console.error('Generating JavaScript with escodegen failed');
+    console.error(error);
+  }
+  return false;
+  //return generateCst(ast);
 };
+
+// Exported so that can be unit tested
+module.exports._defineToImports = defineToImports;
+module.exports._getNameAndContents = getNameAndContents;
+module.exports._addAstImports = addAstImports;
+module.exports._addAstExport = addAstExport;
+module.exports._processExpression = processExpression;
+module.exports._process = process;
+module.exports._parseCst = parseCst;
+module.exports._generateCst = generateCst;

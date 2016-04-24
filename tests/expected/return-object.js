@@ -4,5 +4,6 @@ import $ from 'jquery';
 var GreenLantern = Make.It.Happen({ url: 'internet' });
 export default {
   jqueryVer: $.fn.version,
-  offers: new GreenLantern()
+  offers: new GreenLantern(),
+  isMovieOk: true
 };

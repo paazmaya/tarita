@@ -158,7 +158,7 @@ fileList.forEach((filepath) => {
   }
 
   const input = fs.readFileSync(filepath, 'utf8'),
-    output = tarita(input),
+    output = tarita(input, opts),
     outpath = path.join(outdir, filepath);
 
   fs.ensureDirSync(path.dirname(outpath));

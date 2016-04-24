@@ -100,7 +100,7 @@ tape('react component should not produce any output', (test) => {
   const fixture = fs.readFileSync(path.join(fixtureDir, 'react-component.jsx'), 'utf8');
   const output = tarita(fixture);
 
-  test.ok(output);
+  test.not(output);
 });
 
 tape('return an object of things', (test) => {
