@@ -35,6 +35,8 @@ const defineToImports = (expression) => {
     return item.type === 'FunctionExpression';
   });
 
+  //console.log(expression);
+
   if (nameList) {
     const identifiers = nameList.elements.map((item) => {
       return item.value;
@@ -73,17 +75,25 @@ const getNameAndContents = (body) => {
   // Starting from end, look for ReturnStatement
 
   let returnArgument = false;
+
+  // Reverse in order to start finding a match from the original end
   body.reverse();
 
   const nameIndex = body.findIndex((item) => {
     return item.type && item.type === 'ReturnStatement';
   });
 
+  console.log('nameIndex: ' + nameIndex);
+
   if (typeof nameIndex === 'number' && nameIndex > -1) {
     returnArgument = body[nameIndex].argument;
     body.splice(nameIndex, 1);
   }
+
+  // Reverse again in order to return to the original order
   body.reverse();
+
+  console.log('body.length: ' + body.length);
 
   return {
     defaultExport: returnArgument,
@@ -100,6 +110,9 @@ const getNameAndContents = (body) => {
 const addAstImports = (imports) => {
   return Object.keys(imports).map((key) => {
     const name = imports[key];
+
+    // ImportDeclaration
+
     return {
       type: 'ImportDeclaration',
       specifiers: [
@@ -116,6 +129,7 @@ const addAstImports = (imports) => {
         value: name
       }
     };
+
   });
 };
 
@@ -135,18 +149,39 @@ const addAstExport = (ast) => {
 /**
  * Process the AST in the hope of finding expression at the top
  *
- * @param {object} ast AST for the ExpressionStatement that has passed the requirements
+ * @param {object} node AST for the CallExpression Node that has passed the requirements
  * @returns {array} Possibly modified AST as a list
  */
-const processExpression = (ast) => {
+const processExpression = (node) => {
+
+  console.log('node.type: ' + node.type);
+  console.log('node.childElements.length: ' + node.childElements.length);
+
+  // Imports should be placed at the top of the Program
+  const program = node.getOwnerProgram();
+
+  node.childElements.map((item) => {
+    //console.log(item);
+    //return item.remove();
+  });
+
+
+
+  //console.log(node.parentElement);
+
   let outputAst = [];
 
-  const impr = defineToImports(ast);
+  console.log('expression keys: ' + Object.keys(node).length);
+
+  const impr = defineToImports(node);
+
+
+
   const importList = addAstImports(impr);
   outputAst = outputAst.concat(importList);
 
   // Get the first block statement
-  const blockArgument = ast.arguments.find((item) => {
+  const blockArgument = node.arguments.find((item) => {
     return item.body && item.body.type === 'BlockStatement';
   });
 
@@ -163,39 +198,33 @@ const processExpression = (ast) => {
       outputAst = outputAst.concat(exportName);
     }
   }
+  */
 
-  return outputAst;
+  return node;
 };
 
 /**
  * Process the AST in the hope of finding expression at the top
  *
- * @param {object} ast AST program
+ * @param {object} tree AST tree
  * @returns {object} Possibly modified AST
  */
-const process = (ast) => {
+const process = (tree) => {
 
-  // Please note that 'use strict'; is an expression statement,
-  // so find the first expression statement that contains CallExpression
-  // of which the name is "define" or "require"
-  const bodyIndex = ast.body.findIndex((item) => {
-    return item.type === 'ExpressionStatement' &&
-      item.expression && item.expression.type === 'CallExpression' &&
-      item.expression.callee && item.expression.callee.name &&
-      item.expression.callee.name.match(/(define|require)/);
+  // undefined would match define if not limits
+  const requireExp = /^(define|require)$/;
+
+  const requireNodes = tree.selectNodesByType('CallExpression').filter((item) => {
+    return item.callee &&
+      item.callee.name &&
+      requireExp.test(item.callee.name);
+  }).map((item) => {
+    return processExpression(item);
   });
 
-  if (typeof bodyIndex === 'number' && bodyIndex !== -1) {
-    const body = processExpression(ast.body[bodyIndex].expression);
-    body.unshift(bodyIndex, 1); // Position, remove count
+  // TODO: Should somehow make sure that those Nodes end up in the tree
 
-    // Remove the previous body item and replace with others
-    Array.prototype.splice.apply(ast.body, body);
-
-    ast.sourceType = 'module';
-  }
-
-  return ast;
+  return tree;
 };
 
 /**
@@ -205,7 +234,7 @@ const process = (ast) => {
  * @return {object}       AST returned from espree
  */
 const parseEspree = (input) => {
-  return espree.parse(input, {
+  const ast = espree.parse(input, {
     attachComment: true,
     comment: true,
     tolerant: true,
@@ -216,6 +245,8 @@ const parseEspree = (input) => {
       jsx: true
     }
   });
+
+  return ast;
 };
 
 /**
@@ -228,7 +259,7 @@ const parseEspree = (input) => {
 const parseCst = (input) => {
   const parser = new cst.Parser({
     sourceType: 'module',
-    strictMode: true,
+    strictMode: false,
     ecmaVersion: 6,
     experimentalFeatures: {
       flow: true,
@@ -249,7 +280,9 @@ const parseCst = (input) => {
       jsx: true
     }
   });
-  return parser.parse(input);
+
+  const ast = parser.parse(input);
+  return ast;
 };
 
 /**
@@ -288,20 +321,24 @@ module.exports = (input, options) => {
   this.options.verbose = typeof this.options.verbose === 'boolean' ?
     this.options.verbose : false;
 
-  let ast = parseEspree(input);
-  //let ast = parseCst(input);
+  //let ast = parseEspree(input);
+  let ast = parseCst(input);
+
+  console.log('ast.sourceType: ' + ast.sourceType);
 
   ast = process(ast);
 
+  console.log('ast.sourceType: ' + ast.sourceType);
+
   try {
-    return generateEscodegen(ast);
+    //return generateEscodegen(ast);
+    return generateCst(ast);
   }
   catch (error) {
-    console.error('Generating JavaScript with escodegen failed');
+    console.error('Generating JavaScript failed');
     console.error(error);
   }
   return false;
-  //return generateCst(ast);
 };
 
 // Exported so that can be unit tested

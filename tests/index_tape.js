@@ -37,27 +37,32 @@ tape('all exported things are functions', (test) => {
 });
 
 tape('already has exports', (test) => {
-  test.plan(1);
+  test.plan(2);
 
-  const fixture = fs.readFileSync(path.join(fixtureDir, 'already-exports.js'), 'utf8');
+  const filepath = path.join(fixtureDir, 'already-exports.js');
+  const fixture = fs.readFileSync(filepath, 'utf8');
   const output = tarita(fixture);
 
-  test.ok(output);
+  test.equal(typeof output, 'string');
+  test.equal(output.substr(0, 20), fixture.substr(0, 20), 'output is about the same as input');
 });
 
 tape('already has imports', (test) => {
-  test.plan(1);
+  test.plan(2);
 
-  const fixture = fs.readFileSync(path.join(fixtureDir, 'already-imports.js'), 'utf8');
+  const filepath = path.join(fixtureDir, 'already-imports.js');
+  const fixture = fs.readFileSync(filepath, 'utf8');
   const output = tarita(fixture);
 
-  test.ok(output);
+  test.equal(typeof output, 'string');
+  test.equal(output.substr(0, 20), fixture.substr(0, 20), 'output is about the same as input');
 });
 
 tape('no function arguments', (test) => {
   test.plan(1);
 
-  const fixture = fs.readFileSync(path.join(fixtureDir, 'no-function-arguments.js'), 'utf8');
+  const filepath = path.join(fixtureDir, 'no-function-arguments.js');
+  const fixture = fs.readFileSync(filepath, 'utf8');
   const expected = fs.readFileSync(path.join(expectedDir, 'no-function-arguments.js'), 'utf8');
   const output = tarita(fixture);
 
@@ -67,7 +72,8 @@ tape('no function arguments', (test) => {
 tape('input contains only comments', (test) => {
   test.plan(1);
 
-  const fixture = fs.readFileSync(path.join(fixtureDir, 'only-comments.js'), 'utf8');
+  const filepath = path.join(fixtureDir, 'only-comments.js');
+  const fixture = fs.readFileSync(filepath, 'utf8');
   const expected = fs.readFileSync(path.join(expectedDir, 'only-comments.js'), 'utf8');
   const output = tarita(fixture);
 
@@ -77,7 +83,8 @@ tape('input contains only comments', (test) => {
 tape('input contains only dependencies', (test) => {
   test.plan(1);
 
-  const fixture = fs.readFileSync(path.join(fixtureDir, 'only-dependencies.js'), 'utf8');
+  const filepath = path.join(fixtureDir, 'only-dependencies.js');
+  const fixture = fs.readFileSync(filepath, 'utf8');
   const expected = fs.readFileSync(path.join(expectedDir, 'only-dependencies.js'), 'utf8');
   const output = tarita(fixture);
 
@@ -87,7 +94,8 @@ tape('input contains only dependencies', (test) => {
 tape('input contains only return', (test) => {
   test.plan(1);
 
-  const fixture = fs.readFileSync(path.join(fixtureDir, 'only-return.js'), 'utf8');
+  const filepath = path.join(fixtureDir, 'only-return.js');
+  const fixture = fs.readFileSync(filepath, 'utf8');
   const expected = fs.readFileSync(path.join(expectedDir, 'only-return.js'), 'utf8');
   const output = tarita(fixture);
 
@@ -97,16 +105,18 @@ tape('input contains only return', (test) => {
 tape('react component should not produce any output', (test) => {
   test.plan(1);
 
-  const fixture = fs.readFileSync(path.join(fixtureDir, 'react-component.jsx'), 'utf8');
+  const filepath = path.join(fixtureDir, 'react-component.jsx');
+  const fixture = fs.readFileSync(filepath, 'utf8');
   const output = tarita(fixture);
 
-  test.not(output);
+  test.notOk(output);
 });
 
 tape('return an object of things', (test) => {
   test.plan(1);
 
-  const fixture = fs.readFileSync(path.join(fixtureDir, 'return-object.js'), 'utf8');
+  const filepath = path.join(fixtureDir, 'return-object.js');
+  const fixture = fs.readFileSync(filepath, 'utf8');
   const expected = fs.readFileSync(path.join(expectedDir, 'return-object.js'), 'utf8');
   const output = tarita(fixture);
 
@@ -116,7 +126,8 @@ tape('return an object of things', (test) => {
 tape('return a single item', (test) => {
   test.plan(1);
 
-  const fixture = fs.readFileSync(path.join(fixtureDir, 'return-single.js'), 'utf8');
+  const filepath = path.join(fixtureDir, 'return-single.js');
+  const fixture = fs.readFileSync(filepath, 'utf8');
   const expected = fs.readFileSync(path.join(expectedDir, 'return-single.js'), 'utf8');
   const output = tarita(fixture);
 
@@ -126,7 +137,8 @@ tape('return a single item', (test) => {
 tape('single required item', (test) => {
   test.plan(1);
 
-  const fixture = fs.readFileSync(path.join(fixtureDir, 'single-item.js'), 'utf8');
+  const filepath = path.join(fixtureDir, 'single-item.js');
+  const fixture = fs.readFileSync(filepath, 'utf8');
   const expected = fs.readFileSync(path.join(expectedDir, 'single-item.js'), 'utf8');
   const output = tarita(fixture);
 

@@ -1,6 +1,6 @@
 {
   "name": "tarita",
-  "version": "0.4.0",
+  "version": "0.5.0-dev",
   "description": "Convert Require.js define to EcmaScript imports",
   "main": "index.js",
   "bin": "bin/tarita.js",
@@ -38,7 +38,7 @@
     "node": ">=4.2.0"
   },
   "dependencies": {
-    "cst": "^0.1.6",
+    "cst": "^0.3.0",
     "escodegen": "^1.8.0",
     "espree": "^3.1.4",
     "fs-extra": "^0.30.0",

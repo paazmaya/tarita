@@ -1,0 +1,265 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 184,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 20,
+      "column": 0
+    }
+  },
+  "range": [
+    0,
+    184
+  ],
+  "body": [],
+  "sourceType": "module",
+  "trailingComments": [
+    {
+      "type": "Block",
+      "value": "*\n * This file only contains comments, in different formats.\n ",
+      "start": 0,
+      "end": 66,
+      "range": [
+        0,
+        66
+      ],
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 3,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "Line",
+      "value": " One liners",
+      "start": 68,
+      "end": 81,
+      "range": [
+        68,
+        81
+      ],
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 0
+        },
+        "end": {
+          "line": 5,
+          "column": 13
+        }
+      }
+    },
+    {
+      "type": "Block",
+      "value": "\nmulti\nliners\n",
+      "start": 83,
+      "end": 101,
+      "range": [
+        83,
+        101
+      ],
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 0
+        },
+        "end": {
+          "line": 10,
+          "column": 2
+        }
+      }
+    },
+    {
+      "type": "Line",
+      "value": " Even with indentation",
+      "start": 107,
+      "end": 131,
+      "range": [
+        107,
+        131
+      ],
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 4
+        },
+        "end": {
+          "line": 12,
+          "column": 28
+        }
+      }
+    },
+    {
+      "type": "Block",
+      "value": "\n    such as\n    these\n    ",
+      "start": 137,
+      "end": 168,
+      "range": [
+        137,
+        168
+      ],
+      "loc": {
+        "start": {
+          "line": 14,
+          "column": 4
+        },
+        "end": {
+          "line": 17,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": "Line",
+      "value": " // the end",
+      "start": 170,
+      "end": 183,
+      "range": [
+        170,
+        183
+      ],
+      "loc": {
+        "start": {
+          "line": 19,
+          "column": 0
+        },
+        "end": {
+          "line": 19,
+          "column": 13
+        }
+      }
+    }
+  ],
+  "comments": [
+    {
+      "type": "Block",
+      "value": "*\n * This file only contains comments, in different formats.\n ",
+      "start": 0,
+      "end": 66,
+      "range": [
+        0,
+        66
+      ],
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 3,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "Line",
+      "value": " One liners",
+      "start": 68,
+      "end": 81,
+      "range": [
+        68,
+        81
+      ],
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 0
+        },
+        "end": {
+          "line": 5,
+          "column": 13
+        }
+      }
+    },
+    {
+      "type": "Block",
+      "value": "\nmulti\nliners\n",
+      "start": 83,
+      "end": 101,
+      "range": [
+        83,
+        101
+      ],
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 0
+        },
+        "end": {
+          "line": 10,
+          "column": 2
+        }
+      }
+    },
+    {
+      "type": "Line",
+      "value": " Even with indentation",
+      "start": 107,
+      "end": 131,
+      "range": [
+        107,
+        131
+      ],
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 4
+        },
+        "end": {
+          "line": 12,
+          "column": 28
+        }
+      }
+    },
+    {
+      "type": "Block",
+      "value": "\n    such as\n    these\n    ",
+      "start": 137,
+      "end": 168,
+      "range": [
+        137,
+        168
+      ],
+      "loc": {
+        "start": {
+          "line": 14,
+          "column": 4
+        },
+        "end": {
+          "line": 17,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": "Line",
+      "value": " // the end",
+      "start": 170,
+      "end": 183,
+      "range": [
+        170,
+        183
+      ],
+      "loc": {
+        "start": {
+          "line": 19,
+          "column": 0
+        },
+        "end": {
+          "line": 19,
+          "column": 13
+        }
+      }
+    }
+  ]
+}
