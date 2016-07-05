@@ -38,18 +38,18 @@
     "node": ">=4.2.0"
   },
   "dependencies": {
-    "cst": "^0.3.0",
+    "cst": "^0.4.3",
     "escodegen": "^1.8.0",
-    "espree": "^3.1.5",
+    "espree": "^3.1.6",
     "fs-extra": "^0.30.0",
     "optionator": "^0.8.1"
   },
   "devDependencies": {
-    "babel-eslint": "^6.0.4",
+    "babel-eslint": "^6.1.0",
     "codecov": "^1.0.1",
-    "eslint": "^2.11.1",
+    "eslint": "^3.0.0",
     "eslint-config-paazmaya": "^2.1.0",
-    "nyc": "^6.4.4",
-    "tape": "^4.5.1"
+    "nyc": "^6.6.1",
+    "tape": "^4.6.0"
   }
 }
