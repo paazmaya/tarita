@@ -23,7 +23,7 @@
     "type": "git",
     "url": "https://github.com/paazmaya/tarita.git"
   },
-  "author": "Juga Paazmaya <paazmaya@yahoo.com> (http://paazmaya.fi)",
+  "author": "Juga Paazmaya <paazmaya@yahoo.com> (https://paazmaya.fi)",
   "license": "MIT",
   "files": [
     "bin",
@@ -45,11 +45,11 @@
     "optionator": "^0.8.1"
   },
   "devDependencies": {
-    "babel-eslint": "^6.1.0",
+    "babel-eslint": "^6.1.1",
     "codecov": "^1.0.1",
-    "eslint": "^3.0.0",
+    "eslint": "^3.0.1",
     "eslint-config-paazmaya": "^2.2.0",
-    "nyc": "^6.6.1",
+    "nyc": "^7.0.0",
     "tape": "^4.6.0"
   }
 }

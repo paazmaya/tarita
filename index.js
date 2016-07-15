@@ -4,7 +4,7 @@
  *
  * Convert Require.js define to EcmaScript imports
  *
- * Copyright (c) Juga Paazmaya <paazmaya@yahoo.com> (http://paazmaya.fi)
+ * Copyright (c) Juga Paazmaya <paazmaya@yahoo.com> (https://paazmaya.fi)
  * Licensed under the MIT license
  */
 'use strict';
@@ -166,7 +166,6 @@ const processExpression = (node) => {
   });
 
 
-
   //console.log(node.parentElement);
 
   let outputAst = [];
@@ -174,7 +173,6 @@ const processExpression = (node) => {
   console.log('expression keys: ' + Object.keys(node).length);
 
   const impr = defineToImports(node);
-
 
 
   const importList = addAstImports(impr);
@@ -198,7 +196,6 @@ const processExpression = (node) => {
       outputAst = outputAst.concat(exportName);
     }
   }
-  */
 
   return node;
 };
