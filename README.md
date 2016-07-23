@@ -4,6 +4,7 @@
 
 [![Dependency Status](https://gemnasium.com/paazmaya/tarita.svg)](https://gemnasium.com/paazmaya/tarita)
 [![Build Status](https://travis-ci.org/paazmaya/tarita.svg?branch=master)](https://travis-ci.org/paazmaya/tarita)
+[![Windows Build Status](https://ci.appveyor.com/api/projects/status/5chh43ed57icvv33/branch/master?svg=true)](https://ci.appveyor.com/project/paazmaya/tarita)
 [![codecov.io](https://codecov.io/github/paazmaya/tarita/coverage.svg?branch=master)](https://codecov.io/github/paazmaya/tarita?branch=master)
 
 Parsing to [AST](https://github.com/estree/estree) happens with
@@ -87,6 +88,7 @@ Version 0.5.0
 
 * `v0.5.0` (2016-06)
     - Using `cst` for code parsing, conversion and stringifying
+    - Started testing with Windows at AppVeyor
 * `v0.4.0` (2016-01-28)
     - Do not break the existing structure outside `define` statement
 * `v0.3.0` (2016-01-28)
