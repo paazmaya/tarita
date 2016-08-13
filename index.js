@@ -9,11 +9,9 @@
  */
 'use strict';
 
-const fs = require('fs');
+const cst = require('cst');
 
-const espree = require('espree'),
-  cst = require('cst'),
-  escodegen = require('escodegen');
+const parseCode = require('./lib/parse-code');
 
 /**
  * Read the values used in define array and map to the function arguments.
@@ -142,6 +140,12 @@ const addAstImports = (imports) => {
  * @returns {array} AST for default export declaration
  */
 const addAstExport = (ast) => {
+
+  const children = [];
+  // extends https://github.com/cst/cst/blob/master/src/elements/Element.js
+  const decl = new cst.types.ExportDefaultDeclaration(children);
+  console.log(decl);
+
   return [{
     type: 'ExportDefaultDeclaration',
     declaration: ast
@@ -201,136 +205,53 @@ const processExpression = (node) => {
   return node;
 };
 
+const MATCH_DEFINE = /^(define|require)$/;
+
 /**
  * Process the AST in the hope of finding expression at the top
  *
- * @param {object} tree AST tree
- * @returns {object} Possibly modified AST
+ * @param {object} Program CST tree from parser
+ * @returns {object} Possibly modified CST
  */
-const process = (tree) => {
+const process = (program) => {
+  //console.dir(program);
 
-  // undefined would match define if not limits
-  const requireExp = /^(define|require)$/;
-
-  const requireNodes = tree.selectNodesByType('CallExpression').filter((item) => {
+  const requireNodes = program.selectNodesByType('CallExpression').filter((item) => {
     return item.callee &&
       item.callee.name &&
-      requireExp.test(item.callee.name);
+      MATCH_DEFINE.test(item.callee.name);
   }).map((item) => {
-    return processExpression(item);
+    console.log(item.childElements.length);
+    return ''; //processExpression(item);
   });
+
+  //console.dir(requireNodes);
 
   // TODO: Should somehow make sure that those Nodes end up in the tree
 
-  return tree;
+  return program;
 };
+
 
 /**
- * Parse the given input via espree parser
+ * Convert the given input JavaScript code from Require.js to
+ * use EcmaScript imports.
  *
- * @param  {string} input JavaScript code
- * @return {object}       AST returned from espree
+ * @param {string} input JavaScript code
+ * @param {Object} options Options passed, if any
+ * @param {bool} options.verbose Shall the actions be printed out
+ * @return {string|bool} JavaScript code or false when failed
  */
-const parseEspree = (input) => {
-  const ast = espree.parse(input, {
-    attachComment: true,
-    comment: true,
-    tolerant: true,
-    loc: true,
-    ecmaVersion: 6,
-    sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true
-    }
-  });
-
-  return ast;
-};
-
-/**
- * Parse the given input via cst parser
- *
- * @param  {string} input JavaScript code
- * @return {object}       AST returned from espree
- * @see https://github.com/cst/cst/wiki/Parser-options
- */
-const parseCst = (input) => {
-  const parser = new cst.Parser({
-    sourceType: 'module',
-    strictMode: false,
-    ecmaVersion: 6,
-    experimentalFeatures: {
-      flow: true,
-      jsx: true,
-      asyncFunctions: true,
-      asyncGenerators: true,
-      classConstructorCall: true,
-      classProperties: true,
-      decorators: true,
-      doExpressions: true,
-      exponentiationOperator: true,
-      exportExtensions: true,
-      functionBind: true,
-      objectRestSpread: true,
-      trailingFunctionCommas: true
-    },
-    languageExtensions: {
-      jsx: true
-    }
-  });
-
-  const ast = parser.parse(input);
-  return ast;
-};
-
-/**
- * Generate JavaScript code from the input AST via escodegen
- *
- * @param  {object} ast AST
- * @return {string}     JavaScript code
- */
-const generateEscodegen = (ast) => {
-  return escodegen.generate(ast, {
-    comment: true,
-    format: {
-      indent: {
-        style: '  ',
-        base: 0,
-        adjustMultilineComment: true
-      },
-      quotes: 'single',
-      preserveBlankLines: true
-    }
-  });
-};
-
-/**
- * Generate JavaScript code from the input AST via cst
- *
- * @param  {object} ast AST
- * @return {string}     JavaScript code
- */
-const generateCst = (ast) => {
-  return ast.getSourceCode();
-};
-
-module.exports = (input, options) => {
+const convert = (input, options) => {
   this.options = options || {};
-  this.options.verbose = typeof this.options.verbose === 'boolean' ?
-    this.options.verbose : false;
+  this.options.verbose = typeof this.options.verbose === 'boolean' ? this.options.verbose : false;
 
-  //let ast = parseEspree(input);
-  let ast = parseCst(input);
+  let program = parseCode(input);
 
-  console.log('ast.sourceType: ' + ast.sourceType);
-
-  ast = process(ast);
-
-  console.log('ast.sourceType: ' + ast.sourceType);
+  program = process(program);
 
   try {
-    //return generateEscodegen(ast);
-    return generateCst(ast);
+    return program.getSourceCode();
   }
   catch (error) {
     console.error('Generating JavaScript failed');
@@ -338,6 +259,8 @@ module.exports = (input, options) => {
   }
   return false;
 };
+
+module.exports = convert;
 
 // Exported so that can be unit tested
 module.exports._defineToImports = defineToImports;
@@ -347,4 +270,3 @@ module.exports._addAstExport = addAstExport;
 module.exports._processExpression = processExpression;
 module.exports._process = process;
 module.exports._parseCst = parseCst;
-module.exports._generateCst = generateCst;

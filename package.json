@@ -40,8 +40,6 @@
   },
   "dependencies": {
     "cst": "^0.4.6",
-    "escodegen": "^1.8.1",
-    "espree": "^3.1.7",
     "fs-extra": "^0.30.0",
     "optionator": "^0.8.1"
   },

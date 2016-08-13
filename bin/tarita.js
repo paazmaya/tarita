@@ -140,9 +140,9 @@ fileList.forEach((filepath) => {
     console.log(`Processing file ${filepath}`);
   }
 
-  const input = fs.readFileSync(filepath, 'utf8'),
-    output = tarita(input, opts),
-    outpath = path.join(outdir, filepath);
+  const input = fs.readFileSync(filepath, 'utf8');
+  const output = tarita(input, opts);
+  const outpath = path.join(outdir, filepath);
 
   fs.ensureDirSync(path.dirname(outpath));
   fs.writeFileSync(outpath, output, 'utf8');
