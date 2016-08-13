@@ -100,8 +100,6 @@ tape('import from', (test) => {
   test.notOk(program.body[0].childElements[4].name);
   test.notOk(program.body[0].childElements[4].value);
 
-  //console.log(program.body[0].childElements[4]);
-
   test.equal(program.body[0].childElements[5].type, 'Whitespace');
   test.notOk(program.body[0].childElements[5].name);
   test.equal(program.body[0].childElements[5].value, ' ');
@@ -133,7 +131,7 @@ tape('import from', (test) => {
   test.end();
 });
 
-tape('export default named number', (test) => {
+tape('export default named number assingment', (test) => {
 
   const program = parseCode('export default total = 5;');
 
@@ -144,6 +142,82 @@ tape('export default named number', (test) => {
   test.equal(program.body[0].childElements.length, 6);
 
   test.notOk(program.body[0].specifiers);
+
+  test.equal(program.body[0].firstChild.type, 'Keyword');
+  test.notOk(program.body[0].firstChild.name);
+  test.equal(program.body[0].firstChild.value, 'export');
+
+  test.equal(program.body[0].childElements[1].type, 'Whitespace');
+  test.notOk(program.body[0].childElements[1].name);
+  test.equal(program.body[0].childElements[1].value, ' ');
+
+  test.equal(program.body[0].childElements[2].type, 'Keyword');
+  test.notOk(program.body[0].childElements[2].name);
+  test.equal(program.body[0].childElements[2].value, 'default');
+
+  test.equal(program.body[0].childElements[3].type, 'Whitespace');
+  test.notOk(program.body[0].childElements[3].name);
+  test.equal(program.body[0].childElements[3].value, ' ');
+
+  test.equal(program.body[0].childElements[4].type, 'AssignmentExpression');
+  test.notOk(program.body[0].childElements[4].name);
+  test.notOk(program.body[0].childElements[4].value);
+  test.equal(program.body[0].childElements[4].childElements.length, 5);
+
+  console.log(program.body[0].childElements[4].childElements[0]);
+
+  test.equal(program.body[0].childElements[4].childElements[0].type, 'Identifier');
+  test.notOk(program.body[0].childElements[4].childElements[0].name);
+  test.equal(program.body[0].childElements[4].childElements[0].value, 'total');
+
+
+  test.equal(program.body[0].lastChild.type, 'Punctuator');
+  test.notOk(program.body[0].lastChild.name);
+  test.equal(program.body[0].lastChild.value, ';');
+
+  test.end();
+});
+
+tape('export default named variable', (test) => {
+
+  const program = parseCode('export default total;');
+
+  test.equal(program.type, 'Program');
+  test.equal(program.body.length, 1);
+
+  test.equal(program.body[0].type, 'ExportDefaultDeclaration');
+  test.equal(program.body[0].childElements.length, 6);
+
+  test.notOk(program.body[0].specifiers);
+
+  test.equal(program.body[0].firstChild.type, 'Keyword');
+  test.notOk(program.body[0].firstChild.name);
+  test.equal(program.body[0].firstChild.value, 'export');
+  test.equal(program.body[0].firstChild.childElements.length, 0);
+
+  test.equal(program.body[0].childElements[1].type, 'Whitespace');
+  test.notOk(program.body[0].childElements[1].name);
+  test.equal(program.body[0].childElements[1].value, ' ');
+  test.equal(program.body[0].childElements[1].childElements.length, 0);
+
+  test.equal(program.body[0].childElements[2].type, 'Keyword');
+  test.notOk(program.body[0].childElements[2].name);
+  test.equal(program.body[0].childElements[2].value, 'default');
+  test.equal(program.body[0].childElements[2].childElements.length, 0);
+
+  test.equal(program.body[0].childElements[3].type, 'Whitespace');
+  test.notOk(program.body[0].childElements[3].name);
+  test.equal(program.body[0].childElements[3].value, ' ');
+  test.equal(program.body[0].childElements[3].childElements.length, 0);
+
+  test.equal(program.body[0].childElements[4].type, 'Identifier');
+  test.equal(program.body[0].childElements[4].name, 'total');
+  test.notOk(program.body[0].childElements[4].value);
+  test.equal(program.body[0].childElements[4].childElements.length, 1);
+
+  test.equal(program.body[0].childElements[4].childElements[0].type, 'Identifier');
+  test.notOk(program.body[0].childElements[4].childElements[0].name);
+  test.equal(program.body[0].childElements[4].childElements[0].value, 'total');
 
   test.equal(program.body[0].lastChild.type, 'Punctuator');
   test.notOk(program.body[0].lastChild.name);

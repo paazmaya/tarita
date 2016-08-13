@@ -12,6 +12,7 @@
 const cst = require('cst');
 
 const parseCode = require('./lib/parse-code');
+const createCode = require('./lib/create-code');
 
 /**
  * Read the values used in define array and map to the function arguments.
@@ -133,24 +134,6 @@ const addAstImports = (imports) => {
   });
 };
 
-/**
- * Create AST for default export declaration
- *
- * @param {object} ast AST of the returned argument
- * @returns {array} AST for default export declaration
- */
-const addAstExport = (ast) => {
-
-  const children = [];
-  // extends https://github.com/cst/cst/blob/master/src/elements/Element.js
-  const decl = new cst.types.ExportDefaultDeclaration(children);
-  console.log(decl);
-
-  return [{
-    type: 'ExportDefaultDeclaration',
-    declaration: ast
-  }];
-};
 
 /**
  * Process the AST in the hope of finding expression at the top
@@ -197,7 +180,7 @@ const processExpression = (node) => {
     outputAst = outputAst.concat(divided.contents);
 
     if (divided.defaultExport) {
-      const exportName = addAstExport(divided.defaultExport);
+      const exportName = createCode.defaultExport(divided.defaultExport);
       outputAst = outputAst.concat(exportName);
     }
   }
@@ -266,7 +249,5 @@ module.exports = convert;
 module.exports._defineToImports = defineToImports;
 module.exports._getNameAndContents = getNameAndContents;
 module.exports._addAstImports = addAstImports;
-module.exports._addAstExport = addAstExport;
 module.exports._processExpression = processExpression;
 module.exports._process = process;
-module.exports._parseCst = parseCst;
