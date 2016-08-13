@@ -16,7 +16,8 @@ const fs = require('fs-extra'),
 
 const optionator = require('optionator');
 
-const tarita = require('../index');
+const tarita = require('../index'),
+  listFiles = require('../lib/list-files');
 
 let pkg;
 
@@ -100,32 +101,10 @@ if (opts.help || opts._.length === 0) {
 }
 
 // List of files that will be processed
-const fileList = [];
+let fileList = [];
 
 // Expression to match file paths against
 const matcher = new RegExp(opts.match);
-
-/**
- * Determine if the given existing filepath is a file or directory
- * and continue with filtering and recursive when needed.
- *
- * @param {string} filepath Relative filepath that exists
- * @param {bool} recurse Should a directory be entered
- * @returns {void}
- */
-const handleFilepath = (filepath, recurse) => {
-  const stat = fs.statSync(filepath);
-  if (stat.isDirectory() && recurse) {
-    const list = fs.readdirSync(filepath);
-
-    list.forEach((item) => {
-      handleFilepath(path.join(filepath, item), opts.recursive);
-    });
-  }
-  else if (filepath.match(matcher) && stat.isFile()) {
-    fileList.push(filepath);
-  }
-};
 
 opts._.forEach((item) => {
   if (!fs.existsSync(item)) {
@@ -133,7 +112,11 @@ opts._.forEach((item) => {
   }
   else {
     // It is ok to enter the directory on the first level
-    handleFilepath(item, true);
+    fileList = listFiles(item, {
+      verbose: opts.verbose,
+      matcher: matcher,
+      recurse: opts.recursive
+    });
   }
 });
 
@@ -164,4 +147,3 @@ fileList.forEach((filepath) => {
   fs.ensureDirSync(path.dirname(outpath));
   fs.writeFileSync(outpath, output, 'utf8');
 });
-

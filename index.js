@@ -9,6 +9,8 @@
  */
 'use strict';
 
+const fs = require('fs');
+
 const espree = require('espree'),
   cst = require('cst'),
   escodegen = require('escodegen');
@@ -164,7 +166,6 @@ const processExpression = (node) => {
     //console.log(item);
     //return item.remove();
   });
-
 
   //console.log(node.parentElement);
 

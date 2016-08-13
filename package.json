@@ -7,7 +7,7 @@
   "homepage": "https://github.com/paazmaya/tarita",
   "scripts": {
     "lint": "eslint -c .eslintrc.json index.js bin/tarita.js",
-    "test": "tape tests/*_test.js",
+    "test": "tape tests/*_test.js tests/lib/*_test.js",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov > coverage.lcov | codecov"
   },
   "keywords": [
@@ -27,6 +27,7 @@
   "license": "MIT",
   "files": [
     "bin",
+    "lib",
     "LICENSE",
     "index.js",
     "README.md"
@@ -47,7 +48,7 @@
   "devDependencies": {
     "babel-eslint": "^6.1.2",
     "codecov": "^1.0.1",
-    "eslint": "^3.2.2",
+    "eslint": "^3.3.0",
     "eslint-config-paazmaya": "^2.3.1",
     "nyc": "^7.1.0",
     "tape": "^4.6.0"

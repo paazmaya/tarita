@@ -11,7 +11,8 @@ Parsing to [AST](https://github.com/estree/estree) happens with
 [`espree`](https://github.com/eslint/espree) and generating code back to JavaScript with
 [`escodegen`](https://github.com/estools/escodegen).
 
-Next release will be using the [JavaScript Concrete Syntax Tree](https://github.com/cst/cst) that should make the conversion a bit simpler.
+Next release will be using the [JavaScript Concrete Syntax Tree](https://github.com/cst/cst) 
+that should make the conversion a bit simpler.
 
 ## Background for the project name
 
