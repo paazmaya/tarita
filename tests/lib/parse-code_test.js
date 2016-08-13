@@ -10,13 +10,18 @@
 
 'use strict';
 
+// The tests in this file are to get to know internals of CST, not really to test it.
+
 const tape = require('tape'),
   parseCode = require('../../lib/parse-code');
 
 tape('variable definition', (test) => {
 
-  const program = parseCode('var i = 44;');
+  const code = 'var i = 44;';
 
+  const program = parseCode(code);
+
+  test.equal(code, program.getSourceCode());
   test.equal(program.type, 'Program');
   test.equal(program.body.length, 1);
 
@@ -59,8 +64,11 @@ tape('variable definition', (test) => {
 
 tape('import from', (test) => {
 
-  const program = parseCode('import { A } from "b";');
+  const code = 'import { A } from "b";';
 
+  const program = parseCode(code);
+
+  test.equal(code, program.getSourceCode());
   test.equal(program.type, 'Program');
   test.equal(program.body.length, 1);
 
@@ -164,12 +172,27 @@ tape('export default named number assingment', (test) => {
   test.notOk(program.body[0].childElements[4].value);
   test.equal(program.body[0].childElements[4].childElements.length, 5);
 
-  console.log(program.body[0].childElements[4].childElements[0]);
-
   test.equal(program.body[0].childElements[4].childElements[0].type, 'Identifier');
-  test.notOk(program.body[0].childElements[4].childElements[0].name);
-  test.equal(program.body[0].childElements[4].childElements[0].value, 'total');
+  test.equal(program.body[0].childElements[4].childElements[0].name, 'total');
+  test.notOk(program.body[0].childElements[4].childElements[0].value);
 
+  test.equal(program.body[0].childElements[4].childElements[1].type, 'Whitespace');
+  test.notOk(program.body[0].childElements[4].childElements[1].name);
+  test.equal(program.body[0].childElements[4].childElements[1].value, ' ');
+
+  test.equal(program.body[0].childElements[4].childElements[2].type, 'Punctuator');
+  test.notOk(program.body[0].childElements[4].childElements[2].name);
+  test.equal(program.body[0].childElements[4].childElements[2].value, '=');
+
+  test.equal(program.body[0].childElements[4].childElements[3].type, 'Whitespace');
+  test.notOk(program.body[0].childElements[4].childElements[3].name);
+  test.equal(program.body[0].childElements[4].childElements[3].value, ' ');
+
+  test.equal(program.body[0].childElements[4].childElements[4].type, 'NumericLiteral');
+  test.notOk(program.body[0].childElements[4].childElements[4].name);
+  test.equal(program.body[0].childElements[4].childElements[4].value, 5);
+
+  //console.log(program.body[0].childElements[4].childElements[4]);
 
   test.equal(program.body[0].lastChild.type, 'Punctuator');
   test.notOk(program.body[0].lastChild.name);

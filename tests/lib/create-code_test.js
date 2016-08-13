@@ -14,45 +14,51 @@ const tape = require('tape'),
   createCode = require('../../lib/create-code');
 
 tape('export default named assumed variable', (test) => {
-  const code = createCode.defaultExport('total');
 
-  test.equal(code.type, 'ExportDefaultDeclaration');
-  test.equal(code.childElements.length, 6);
+  const expectedCode = 'export default total;';
 
-  test.equal(code.firstChild.type, 'Keyword');
-  test.notOk(code.firstChild.name);
-  test.equal(code.firstChild.value, 'export');
+  const decl = createCode.defaultExport('total');
 
-  test.equal(code.childElements[1].type, 'Whitespace');
-  test.notOk(code.childElements[1].name);
-  test.equal(code.childElements[1].value, ' ');
+  const actualCode = decl.getSourceCode();
 
-  test.equal(code.childElements[2].type, 'Keyword');
-  test.notOk(code.childElements[2].name);
-  test.equal(code.childElements[2].value, 'default');
+  test.equal(expectedCode, actualCode);
+  test.equal(decl.type, 'ExportDefaultDeclaration');
+  test.equal(decl.childElements.length, 6);
 
-  test.equal(code.childElements[3].type, 'Whitespace');
-  test.notOk(code.childElements[3].name);
-  test.equal(code.childElements[3].value, ' ');
+  test.equal(decl.firstChild.type, 'Keyword');
+  test.notOk(decl.firstChild.name);
+  test.equal(decl.firstChild.value, 'export');
 
-  test.equal(code.declaration.type, 'Identifier');
-  test.equal(code.declaration.name, 'total');
-  test.notOk(code.declaration.value);
+  test.equal(decl.childElements[1].type, 'Whitespace');
+  test.notOk(decl.childElements[1].name);
+  test.equal(decl.childElements[1].value, ' ');
 
-  test.deepEqual(code.declaration, code.childElements[4]);
+  test.equal(decl.childElements[2].type, 'Keyword');
+  test.notOk(decl.childElements[2].name);
+  test.equal(decl.childElements[2].value, 'default');
 
-  test.equal(code.childElements[4].type, 'Identifier');
-  test.equal(code.childElements[4].name, 'total');
-  test.notOk(code.childElements[4].value);
-  test.equal(code.childElements[4].childElements.length, 1);
+  test.equal(decl.childElements[3].type, 'Whitespace');
+  test.notOk(decl.childElements[3].name);
+  test.equal(decl.childElements[3].value, ' ');
 
-  test.equal(code.childElements[4].childElements[0].type, 'Identifier');
-  test.equal(code.childElements[4].childElements[0].name);
-  test.equal(code.childElements[4].childElements[0].value, 'total');
+  test.equal(decl.declaration.type, 'Identifier');
+  test.equal(decl.declaration.name, 'total');
+  test.notOk(decl.declaration.value);
 
-  test.equal(code.lastChild.type, 'Punctuator');
-  test.notOk(code.lastChild.name);
-  test.equal(code.lastChild.value, ';');
+  test.deepEqual(decl.declaration, decl.childElements[4]);
+
+  test.equal(decl.childElements[4].type, 'Identifier');
+  test.equal(decl.childElements[4].name, 'total');
+  test.notOk(decl.childElements[4].value);
+  test.equal(decl.childElements[4].childElements.length, 1);
+
+  test.equal(decl.childElements[4].childElements[0].type, 'Identifier');
+  test.equal(decl.childElements[4].childElements[0].name);
+  test.equal(decl.childElements[4].childElements[0].value, 'total');
+
+  test.equal(decl.lastChild.type, 'Punctuator');
+  test.notOk(decl.lastChild.name);
+  test.equal(decl.lastChild.value, ';');
 
   test.end();
 });

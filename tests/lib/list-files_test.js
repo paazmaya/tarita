@@ -50,7 +50,7 @@ tape('gets a list of test files recursively', (test) => {
   };
   const list = listFiles(filepath, options);
 
-  test.equal(list.length, 3);
+  test.equal(list.length, 5);
 });
 
 tape('lists a single given file', (test) => {
