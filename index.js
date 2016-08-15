@@ -67,6 +67,17 @@ const defineToImports = (expression) => {
 };
 
 /**
+ * Find the return statement for the define callback.
+ *
+ * @return {[type]} [description]
+ */
+const getLastReturn = (program) => {
+  program.selectNodesByType('ReturnStatement').forEach(node => {
+    console.log(node.name, node.value);
+  });
+};
+
+/**
  * Search for the return statement from the end of the main function body
  *
  * @param {array} body Contents of the main function body
