@@ -112,25 +112,7 @@ const addAstImports = (imports) => {
   return Object.keys(imports).map((key) => {
     const name = imports[key];
 
-    // ImportDeclaration
-
-    return {
-      type: 'ImportDeclaration',
-      specifiers: [
-        {
-          type: 'ImportDefaultSpecifier',
-          local: {
-            type: 'Identifier',
-            name: key
-          }
-        }
-      ],
-      source: {
-        type: 'Literal',
-        value: name
-      }
-    };
-
+    return createCode.importName(key, name);
   });
 };
 
