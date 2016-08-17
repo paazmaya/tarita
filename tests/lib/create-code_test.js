@@ -76,17 +76,13 @@ tape('"importName" - import single thing', (test) => {
   test.equal(decl.childElements.length, 7);
 
   test.equal(decl.specifiers.length, 1);
-  test.equal(decl.specifiers[0].type, 'ImportSpecifier');
+  test.equal(decl.specifiers[0].type, 'ImportDefaultSpecifier');
   test.notOk(decl.specifiers[0].name);
   test.notOk(decl.specifiers[0].value);
 
   test.equal(decl.specifiers[0].local.type, 'Identifier');
   test.equal(decl.specifiers[0].local.name, '$');
   test.notOk(decl.specifiers[0].local.value);
-
-  test.equal(decl.specifiers[0].imported.type, 'Identifier');
-  test.equal(decl.specifiers[0].imported.name, '$');
-  test.notOk(decl.specifiers[0].imported.value);
 
   test.equal(decl.childElements[0].type, 'Keyword');
   test.notOk(decl.childElements[0].name);
@@ -96,7 +92,7 @@ tape('"importName" - import single thing', (test) => {
   test.notOk(decl.childElements[1].name);
   test.equal(decl.childElements[1].value, ' ');
 
-  test.equal(decl.childElements[2].type, 'ImportSpecifier');
+  test.equal(decl.childElements[2].type, 'ImportDefaultSpecifier');
   test.notOk(decl.childElements[2].name);
   test.notOk(decl.childElements[2].value);
 
@@ -121,6 +117,9 @@ tape('"importName" - import single thing', (test) => {
   test.equal(decl.childElements[6].type, 'StringLiteral');
   test.notOk(decl.childElements[6].name);
   test.equal(decl.childElements[6].value, 'jquery');
+
+  test.equal(decl.childElements[6].childElements[0].type, 'String');
+  test.equal(decl.childElements[6].childElements[0].value, 'jquery');
 
   test.equal(decl.lastChild.type, 'Punctuator');
   test.notOk(decl.lastChild.name);

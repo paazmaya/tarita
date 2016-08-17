@@ -20,20 +20,10 @@ const fixtureDir = path.join(__dirname, 'fixtures'),
   expectedDir = path.join(__dirname, 'expected');
 
 tape('all exported things are functions', (test) => {
-  test.plan(10);
+  test.plan(2);
 
   test.equal(typeof tarita, 'function');
   test.equal(tarita.length, 2, 'takes two arguments');
-
-  test.equal(typeof tarita._defineToImports, 'function');
-  test.equal(typeof tarita._getNameAndContents, 'function');
-  test.equal(typeof tarita._addAstImports, 'function');
-  test.equal(typeof tarita._addAstExport, 'function');
-  test.equal(typeof tarita._processExpression, 'function');
-  test.equal(typeof tarita._process, 'function');
-  test.equal(typeof tarita._parseCst, 'function');
-  test.equal(typeof tarita._generateCst, 'function');
-
 });
 
 tape('already has exports', (test) => {

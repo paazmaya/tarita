@@ -219,8 +219,6 @@ tape('import default', (test) => {
   test.notOk(program.body[0].childElements[2].childElements[0].isFragment);
   test.ok(program.body[0].childElements[2].childElements[0].isExpression);
 
-  console.log(program.body[0].childElements[2].childElements[0]);
-
   test.equal(program.body[0].childElements[3].type, 'Whitespace');
   test.notOk(program.body[0].childElements[3].name);
   test.equal(program.body[0].childElements[3].value, ' ');
@@ -236,6 +234,10 @@ tape('import default', (test) => {
   test.equal(program.body[0].childElements[6].type, 'StringLiteral');
   test.notOk(program.body[0].childElements[6].name);
   test.equal(program.body[0].childElements[6].value, 'b');
+
+  test.equal(program.body[0].childElements[6].childElements.length, 1);
+  test.equal(program.body[0].childElements[6].childElements[0].type, 'String');
+  test.equal(program.body[0].childElements[6].childElements[0].value, 'b');
 
   test.equal(program.body[0].lastChild.type, 'Punctuator');
   test.notOk(program.body[0].lastChild.name);
