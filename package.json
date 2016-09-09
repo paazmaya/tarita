@@ -8,7 +8,7 @@
   "scripts": {
     "lint": "eslint -c .eslintrc.json index.js bin/tarita.js",
     "test": "tape tests/*_test.js tests/lib/*_test.js",
-    "coverage": "nyc npm test && nyc report --reporter=text-lcov > coverage.lcov | codecov"
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
   "keywords": [
     "ast",
@@ -46,10 +46,10 @@
   "devDependencies": {
     "babel-eslint": "^6.1.2",
     "codecov": "^1.0.1",
-    "eslint": "^3.3.0",
+    "eslint": "^3.4.0",
     "eslint-config-paazmaya": "^2.3.1",
     "espree": "^3.1.7",
-    "nyc": "^7.1.0",
+    "nyc": "^8.1.0",
     "tape": "^4.6.0"
   }
 }
