@@ -7,6 +7,7 @@
  * Copyright (c) Juga Paazmaya <paazmaya@yahoo.com> (https://paazmaya.fi)
  * Licensed under the MIT license
  */
+
 'use strict';
 
 const cst = require('cst');
@@ -198,6 +199,7 @@ const process = (program) => {
       MATCH_DEFINE.test(item.callee.name);
   }).map((item) => {
     console.log(item.childElements.length);
+
     return ''; //processExpression(item);
   });
 
@@ -233,6 +235,7 @@ const convert = (input, options) => {
     console.error('Generating JavaScript failed');
     console.error(error);
   }
+
   return false;
 };
 
