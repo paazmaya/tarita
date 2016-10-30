@@ -44,12 +44,12 @@
     "optionator": "^0.8.2"
   },
   "devDependencies": {
-    "babel-eslint": "^7.0.0",
+    "babel-eslint": "^7.1.0",
     "codecov": "^1.0.1",
-    "eslint": "^3.6.1",
+    "eslint": "^3.9.0",
     "eslint-config-paazmaya": "^3.0.0",
-    "espree": "^3.3.1",
-    "nyc": "^8.3.0",
-    "tape": "^4.6.0"
+    "espree": "^3.3.2",
+    "nyc": "^8.3.2",
+    "tape": "^4.6.2"
   }
 }
