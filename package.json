@@ -40,16 +40,16 @@
   },
   "dependencies": {
     "cst": "^0.4.10",
-    "fs-extra": "^3.0.1",
+    "fs-extra": "^4.0.1",
     "optionator": "^0.8.2"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
-    "codecov": "^2.2.0",
-    "eslint": "^4.2.0",
-    "eslint-config-paazmaya": "^4.0.0",
-    "espree": "^3.4.3",
-    "nyc": "^11.0.3",
-    "tape": "^4.7.0"
+    "codecov": "^2.3.0",
+    "eslint": "^4.4.1",
+    "eslint-config-paazmaya": "^4.1.0",
+    "espree": "^3.5.0",
+    "nyc": "^11.1.0",
+    "tape": "^4.8.0"
   }
 }
