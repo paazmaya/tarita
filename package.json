@@ -36,7 +36,7 @@
     "url": "https://github.com/paazmaya/tarita/issues"
   },
   "engines": {
-    "node": ">=6.9.5"
+    "node": ">=8.11.1"
   },
   "dependencies": {
     "cst": "^0.4.10",
