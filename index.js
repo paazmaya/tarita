@@ -182,7 +182,7 @@ const processExpression = (node) => {
   return node;
 };
 
-const MATCH_DEFINE = /^(define|require)$/;
+const MATCH_DEFINE = /^(define|require)$/u;
 
 /**
  * Process the AST in the hope of finding expression at the top
@@ -222,7 +222,9 @@ const process = (program) => {
  */
 const convert = (input, options) => {
   this.options = options || {};
-  this.options.verbose = typeof this.options.verbose === 'boolean' ? this.options.verbose : false;
+  this.options.verbose = typeof this.options.verbose === 'boolean' ?
+    this.options.verbose :
+    false;
 
   let program = parseCode(input);
 

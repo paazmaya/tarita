@@ -107,7 +107,7 @@ if (opts.help || opts._.length === 0) {
 let fileList = [];
 
 // Expression to match file paths against
-const matcher = new RegExp(opts.match);
+const matcher = new RegExp(opts.match, 'u');
 
 opts._.forEach((item) => {
   if (!fs.existsSync(item)) {
