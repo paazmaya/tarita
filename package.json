@@ -17,7 +17,8 @@
     "requirejs",
     "import",
     "ecmascript",
-    "convert"
+    "convert",
+    "migrate"
   ],
   "repository": {
     "type": "git",

@@ -19,14 +19,14 @@ const tape = require('tape'),
 const fixtureDir = path.join(__dirname, 'fixtures'),
   expectedDir = path.join(__dirname, 'expected');
 
-tape('all exported things are functions', (test) => {
+tape('index - all exported things are functions', (test) => {
   test.plan(2);
 
   test.equal(typeof tarita, 'function');
   test.equal(tarita.length, 2, 'takes two arguments');
 });
 
-tape('already has exports', (test) => {
+tape('index - already has exports', (test) => {
   test.plan(2);
 
   const filepath = path.join(fixtureDir, 'already-exports.js');
@@ -37,7 +37,7 @@ tape('already has exports', (test) => {
   test.equal(output.substr(0, 20), fixture.substr(0, 20), 'output is about the same as input');
 });
 
-tape('already has imports', (test) => {
+tape('index - already has imports', (test) => {
   test.plan(2);
 
   const filepath = path.join(fixtureDir, 'already-imports.js');
@@ -48,7 +48,7 @@ tape('already has imports', (test) => {
   test.equal(output.substr(0, 20), fixture.substr(0, 20), 'output is about the same as input');
 });
 
-tape('no function arguments', (test) => {
+tape('index - no function arguments', (test) => {
   test.plan(1);
 
   const filepath = path.join(fixtureDir, 'no-function-arguments.js');
@@ -59,7 +59,7 @@ tape('no function arguments', (test) => {
   test.equal(output, expected.trim());
 });
 
-tape('input contains only comments', (test) => {
+tape('index - input contains only comments', (test) => {
   test.plan(1);
 
   const filepath = path.join(fixtureDir, 'only-comments.js');
@@ -70,7 +70,7 @@ tape('input contains only comments', (test) => {
   test.equal(output, expected);
 });
 
-tape('input contains only dependencies', (test) => {
+tape('index - input contains only dependencies', (test) => {
   test.plan(1);
 
   const filepath = path.join(fixtureDir, 'only-dependencies.js');
@@ -81,7 +81,7 @@ tape('input contains only dependencies', (test) => {
   test.equal(output, expected.trim());
 });
 
-tape('input contains only return', (test) => {
+tape('index - input contains only return', (test) => {
   test.plan(1);
 
   const filepath = path.join(fixtureDir, 'only-return.js');
@@ -92,7 +92,7 @@ tape('input contains only return', (test) => {
   test.equal(output, expected.trim());
 });
 
-tape('react component should not produce any output', (test) => {
+tape('index - react component should not produce any output', (test) => {
   test.plan(1);
 
   const filepath = path.join(fixtureDir, 'react-component.jsx');
@@ -102,7 +102,7 @@ tape('react component should not produce any output', (test) => {
   test.notOk(output);
 });
 
-tape('return an object of things', (test) => {
+tape('index - return an object of things', (test) => {
   test.plan(1);
 
   const filepath = path.join(fixtureDir, 'return-object.js');
@@ -113,7 +113,7 @@ tape('return an object of things', (test) => {
   test.equal(output, expected.trim());
 });
 
-tape('return a single item', (test) => {
+tape('index - return a single item', (test) => {
   test.plan(1);
 
   const filepath = path.join(fixtureDir, 'return-single.js');
@@ -124,7 +124,7 @@ tape('return a single item', (test) => {
   test.equal(output, expected.trim());
 });
 
-tape('single required item', (test) => {
+tape('index - single required item', (test) => {
   test.plan(1);
 
   const filepath = path.join(fixtureDir, 'single-item.js');

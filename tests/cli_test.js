@@ -18,7 +18,7 @@ const tape = require('tape');
 
 const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json'), 'utf8'));
 
-tape('cli should output version number', (test) => {
+tape('cli - should output version number', (test) => {
   test.plan(1);
 
   execFile('node', [pkg.bin, '-V'], null, (err, stdout) => {
@@ -27,7 +27,7 @@ tape('cli should output version number', (test) => {
 
 });
 
-tape('cli should output help by default', (test) => {
+tape('cli - should output help by default', (test) => {
   test.plan(1);
 
   execFile('node', [pkg.bin], null, (err, stdout) => {
@@ -36,7 +36,7 @@ tape('cli should output help by default', (test) => {
 
 });
 
-tape('cli should output help when requested', (test) => {
+tape('cli - should output help when requested', (test) => {
   test.plan(1);
 
   execFile('node', [pkg.bin, '--help'], null, (err, stdout) => {
@@ -45,7 +45,7 @@ tape('cli should output help when requested', (test) => {
 
 });
 
-tape('cli should create folder for output', (test) => {
+tape('cli - should create folder for output', (test) => {
   test.plan(1);
 
   execFile('node', [pkg.bin, '-o', 'tmp', 'tests/fixtures'], null, (err, stdout) => {
@@ -54,7 +54,7 @@ tape('cli should create folder for output', (test) => {
 
 });
 
-tape('cli should use verbose messages', (test) => {
+tape('cli - should use verbose messages', (test) => {
   test.plan(2);
 
   execFile('node', [pkg.bin, '-v', 'not-here'], null, (err, stdout) => {
@@ -64,7 +64,7 @@ tape('cli should use verbose messages', (test) => {
 
 });
 
-tape('cli should show current file when verbose', (test) => {
+tape('cli - should show current file when verbose', (test) => {
   test.plan(1);
 
   execFile('node', [pkg.bin, '-v', '-o', 'tmp', 'tests/fixtures/single-item.js'], null, (err, stdout) => {
@@ -73,7 +73,7 @@ tape('cli should show current file when verbose', (test) => {
 
 });
 
-tape('cli should complain when package.json is gone', (test) => {
+tape('cli - should complain when package.json is gone', (test) => {
   test.plan(1);
 
   const nameFrom = 'package.json',
@@ -88,7 +88,7 @@ tape('cli should complain when package.json is gone', (test) => {
 
 });
 
-tape('cli should complain when non existing option used', (test) => {
+tape('cli - should complain when non existing option used', (test) => {
   test.plan(1);
 
   execFile('node', [pkg.bin, '-g'], null, (err, stdout, stderr) => {
@@ -97,7 +97,7 @@ tape('cli should complain when non existing option used', (test) => {
 
 });
 
-tape('cli should use matches when given', (test) => {
+tape('cli - should use matches when given', (test) => {
   test.plan(1);
 
   execFile('node', [pkg.bin, '-v', '-o', 'tmp', '-M', '\\.jsx$', 'tests/fixtures'], null, (err, stdout) => {
@@ -105,4 +105,3 @@ tape('cli should use matches when given', (test) => {
   });
 
 });
-

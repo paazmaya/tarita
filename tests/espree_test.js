@@ -16,7 +16,7 @@ const fs = require('fs'),
 const tape = require('tape');
 const espree = require('espree');
 
-const fixtureDir = path.join(__dirname, 'fixtures');
+//const fixtureDir = path.join(__dirname, 'fixtures');
 const expectedDir = path.join(__dirname, 'expected');
 
 /**
@@ -38,6 +38,7 @@ const parseEspree = (filepath) => {
       jsx: true
     }
   });
+
   return ast;
 };
 
@@ -64,7 +65,7 @@ tape('', (test) => {
 });
 */
 
-tape('file: expected/no-function-arguments.js', (test) => {
+tape('espree - file: expected/no-function-arguments.js', (test) => {
   // export default Object.freeze({ pi: 3.14 });
   const filepath = path.join(expectedDir, 'no-function-arguments.js');
   const ast = parseEspree(filepath);
@@ -84,7 +85,7 @@ tape('file: expected/no-function-arguments.js', (test) => {
   test.end();
 });
 
-tape('file: expected/only-comments.js', (test) => {
+tape('espree - file: expected/only-comments.js', (test) => {
   const filepath = path.join(expectedDir, 'only-comments.js');
   const ast = parseEspree(filepath);
 
@@ -100,7 +101,7 @@ tape('file: expected/only-comments.js', (test) => {
   test.end();
 });
 
-tape('file: expected/only-dependencies.js', (test) => {
+tape('espree - file: expected/only-dependencies.js', (test) => {
   // import underscore from 'underscore';
   // import jquery from 'jquery';
   const filepath = path.join(expectedDir, 'only-dependencies.js');
@@ -121,7 +122,7 @@ tape('file: expected/only-dependencies.js', (test) => {
   test.end();
 });
 
-tape('file: expected/only-return.js', (test) => {
+tape('espree - file: expected/only-return.js', (test) => {
   const filepath = path.join(expectedDir, 'only-return.js');
   const ast = parseEspree(filepath);
 
@@ -144,7 +145,7 @@ tape('file: expected/only-return.js', (test) => {
   test.end();
 });
 
-tape('file: expected/return-object.js', (test) => {
+tape('espree - file: expected/return-object.js', (test) => {
   const filepath = path.join(expectedDir, 'return-object.js');
   const ast = parseEspree(filepath);
 
@@ -180,7 +181,7 @@ tape('file: expected/return-object.js', (test) => {
   test.end();
 });
 
-tape('file: expected/return-single.js', (test) => {
+tape('espree - file: expected/return-single.js', (test) => {
   const filepath = path.join(expectedDir, 'return-single.js');
   const ast = parseEspree(filepath);
 
@@ -194,7 +195,7 @@ tape('file: expected/return-single.js', (test) => {
   test.end();
 });
 
-tape('file: expected/single-item.js', (test) => {
+tape('espree - file: expected/single-item.js', (test) => {
   const filepath = path.join(expectedDir, 'single-item.js');
   const ast = parseEspree(filepath);
 
