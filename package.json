@@ -41,16 +41,16 @@
   },
   "dependencies": {
     "cst": "^0.4.10",
-    "fs-extra": "^7.0.0",
+    "fs-extra": "^7.0.1",
     "optionator": "^0.8.2"
   },
   "devDependencies": {
-    "babel-eslint": "^9.0.0",
-    "codecov": "^3.0.4",
-    "eslint": "^5.4.0",
+    "babel-eslint": "^10.0.1",
+    "codecov": "^3.1.0",
+    "eslint": "^5.8.0",
     "eslint-config-paazmaya": "^5.0.0",
-    "espree": "^4.0.0",
-    "nyc": "^13.0.1",
+    "espree": "^4.1.0",
+    "nyc": "^13.1.0",
     "tape": "^4.9.1"
   }
 }
