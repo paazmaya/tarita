@@ -106,6 +106,7 @@ Please make sure it is over 90% at all times.
     - Using `cst` for code parsing, conversion and stringifying
     - Started testing with Windows at AppVeyor
     - Minimum Node.js version lifted from `4.2.0` to `8.11.1`
+    - Use [`npm-shrinkwrap.json`](https://docs.npmjs.com/files/shrinkwrap.json) for locking the working set of 3rd party dependencies
 * `v0.4.0` (2016-01-28)
     - Do not break the existing structure outside `define` statement
 * `v0.3.0` (2016-01-28)

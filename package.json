@@ -31,13 +31,15 @@
     "lib",
     "LICENSE",
     "index.js",
+    "npm-shrinkwrap.json",
     "README.md"
   ],
   "bugs": {
     "url": "https://github.com/paazmaya/tarita/issues"
   },
   "engines": {
-    "node": ">=8.11.1"
+    "node": ">=8.11.1",
+    "npm": ">=5.0.0"
   },
   "dependencies": {
     "cst": "^0.4.10",
