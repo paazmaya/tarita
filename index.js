@@ -10,8 +10,6 @@
 
 'use strict';
 
-const cst = require('cst');
-
 const parseCode = require('./lib/parse-code');
 const createCode = require('./lib/create-code');
 
@@ -65,17 +63,6 @@ const defineToImports = (expression) => {
   }
 
   return false;
-};
-
-/**
- * Find the return statement for the define callback.
- *
- * @return {[type]} [description]
- */
-const getLastReturn = (program) => {
-  program.selectNodesByType('ReturnStatement').forEach(node => {
-    console.log(node.name, node.value);
-  });
 };
 
 /**

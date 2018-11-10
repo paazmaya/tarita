@@ -12,10 +12,10 @@
 
 'use strict';
 
-const fs = require('fs-extra'),
-  path = require('path');
+const path = require('path');
 
-const optionator = require('optionator');
+const fs = require('fs-extra'),
+  optionator = require('optionator');
 
 const tarita = require('../index'),
   listFiles = require('../lib/list-files');

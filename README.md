@@ -7,12 +7,9 @@
 [![Windows Build Status](https://ci.appveyor.com/api/projects/status/5chh43ed57icvv33/branch/master?svg=true)](https://ci.appveyor.com/project/paazmaya/tarita)
 [![codecov.io](https://codecov.io/github/paazmaya/tarita/coverage.svg?branch=master)](https://codecov.io/github/paazmaya/tarita?branch=master)
 
-Parsing to [AST](https://github.com/estree/estree) happens with
+Parsing to [Abstract Syntax Tree (AST)](https://github.com/estree/estree) happens with
 [`espree`](https://github.com/eslint/espree) and generating code back to JavaScript with
 [`escodegen`](https://github.com/estools/escodegen).
-
-Next release will be using the [JavaScript Concrete Syntax Tree](https://github.com/cst/cst)
-that should make the conversion a bit simpler.
 
 ## Background for the project name
 
@@ -103,21 +100,20 @@ Please make sure it is over 90% at all times.
 ## Version history
 
 * `v0.5.0` (2018)
-    - Using `cst` for code parsing, conversion and stringifying
-    - Started testing with Windows at AppVeyor
-    - Minimum Node.js version lifted from `4.2.0` to `8.11.1`
-    - Use [`npm-shrinkwrap.json`](https://docs.npmjs.com/files/shrinkwrap.json) for locking the working set of 3rd party dependencies
+  - Started testing with Windows at AppVeyor
+  - Minimum Node.js version lifted from `4.2.0` to `8.11.1`
+  - Use [`npm-shrinkwrap.json`](https://docs.npmjs.com/files/shrinkwrap.json) for locking the working set of 3rd party dependencies
 * `v0.4.0` (2016-01-28)
-    - Do not break the existing structure outside `define` statement
+  - Do not break the existing structure outside `define` statement
 * `v0.3.0` (2016-01-28)
-    - Also convert cases when there are no dependencies or there is only dependencies
-    - Preserve comments
+  - Also convert cases when there are no dependencies or there is only dependencies
+  - Preserve comments
 * `v0.2.0` (2016-01-28)
-    - Unit testing and automation for it
-    - Using [`nyc`](https://www.npmjs.com/package/nyc) for code coverage
-    - Anything that was originally `return` should be the `export default`
+  - Unit testing and automation for it
+  - Using [`nyc`](https://www.npmjs.com/package/nyc) for code coverage
+  - Anything that was originally `return` should be the `export default`
 * `v0.1.0` (2016-01-25)
-    - Initial conversion ability from a `define` to `import` and `export default`
+  - Initial conversion ability from a `define` to `import` and `export default`
 
 
 ## License
