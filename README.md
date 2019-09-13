@@ -99,7 +99,7 @@ Please make sure it is over 90% at all times.
 
 ## Version history
 
-* `v0.5.0` (2018)
+* `v0.5.0` (2019-09-)
   - Started testing with Windows at AppVeyor
   - Minimum Node.js version lifted from `4.2.0` to `8.11.1`
   - Use [`npm-shrinkwrap.json`](https://docs.npmjs.com/files/shrinkwrap.json) for locking the working set of 3rd party dependencies
