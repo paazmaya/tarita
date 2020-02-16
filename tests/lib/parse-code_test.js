@@ -8,7 +8,7 @@
  * Licensed under the MIT license
  */
 
-'use strict';
+
 
 // The tests in this file are to get to know internals of CST, not really to test it.
 

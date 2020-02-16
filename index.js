@@ -8,7 +8,6 @@
  * Licensed under the MIT license
  */
 
-'use strict';
 
 const parseCode = require('./lib/parse-code');
 const createCode = require('./lib/create-code');
