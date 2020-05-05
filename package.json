@@ -8,7 +8,9 @@
   "scripts": {
     "lint": "eslint index.js bin/tarita.js",
     "test": "nyc --all --exclude tests tape tests/*_test.js tests/lib/*_test.js",
-    "coverage": "nyc --all --exclude tests report --reporter=text-lcov > coverage.lcov && codecov"
+    "coverage": "nyc --all --exclude tests report --reporter=text-lcov > coverage.lcov && codecov",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "keywords": [
     "ast",
@@ -45,7 +47,8 @@
     "cst": "^0.4.10",
     "fs-extra": "^8.1.0",
     "lebab": "^3.1.0",
-    "optionator": "^0.8.2"
+    "optionator": "^0.8.2",
+    "snyk": "^1.317.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
@@ -55,5 +58,6 @@
     "espree": "^6.1.1",
     "nyc": "^14.1.1",
     "tape": "^4.11.0"
-  }
+  },
+  "snyk": true
 }
