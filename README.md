@@ -99,6 +99,8 @@ Please make sure it is over 90% at all times.
 
 ## Version history
 
+- Run tests also against Node.js version 14. Now versions 10 (Travis), 12 (AppVeyor), and 14 (Travis) of Node.js are covered
+
 * `v0.5.0` (2019-09-)
   - Started testing with Windows at AppVeyor
   - Minimum Node.js version lifted from `4.2.0` to `8.11.1`
