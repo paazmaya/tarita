@@ -3,7 +3,7 @@
 > Convert Require.js define to EcmaScript imports
 
 [![dependencies Status](https://david-dm.org/paazmaya/tarita/status.svg)](https://david-dm.org/paazmaya/tarita)
-[![Build Status](https://travis-ci.org/paazmaya/tarita.svg?branch=master)](https://travis-ci.org/paazmaya/tarita)
+[![Build Status](https://travis-ci.com/paazmaya/tarita.svg?branch=master)](https://travis-ci.com/paazmaya/tarita)
 [![Windows Build Status](https://ci.appveyor.com/api/projects/status/5chh43ed57icvv33/branch/master?svg=true)](https://ci.appveyor.com/project/paazmaya/tarita)
 [![codecov.io](https://codecov.io/github/paazmaya/tarita/coverage.svg?branch=master)](https://codecov.io/github/paazmaya/tarita?branch=master)
 
