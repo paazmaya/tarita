@@ -30,7 +30,7 @@ Elevated privileges might be needed via `sudo`, depending on the platform. In mo
 npm install --global tarita
 ```
 
-Please note that the minimum supported version of [Node.js](https://nodejs.org/en/) is `10.13.0`, which is [the active Long Term Support (LTS) version](https://github.com/nodejs/Release#release-schedule).
+Please note that the minimum supported version of [Node.js](https://nodejs.org/en/) is `14.15.0`, which is [the active Long Term Support (LTS) version](https://github.com/nodejs/Release#release-schedule).
 
 Basic use case would be to have a single file containing:
 
