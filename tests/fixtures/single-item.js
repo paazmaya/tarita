@@ -1,5 +1,3 @@
-define([
-  'jquery'
-], function($) {
+define(['jquery'], function($) {
 
 });

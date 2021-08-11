@@ -8,7 +8,7 @@ define([
 
   'use strict';
 
-  var GreenLantern = Make.It.Happen({
+  const GreenLantern = Make.It.Happen({
     url: 'internet'
   });
 

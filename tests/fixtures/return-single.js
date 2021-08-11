@@ -1,8 +1,6 @@
-define([
-  'jquery'
-], function($) {
+define(['jquery'], function($) {
 
-  var SuperMan = {
+  const SuperMan = {
     power: $.fn.version
   };
 

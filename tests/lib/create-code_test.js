@@ -9,7 +9,6 @@
  */
 
 
-
 const tape = require('tape'),
   createCode = require('../../lib/create-code');
 

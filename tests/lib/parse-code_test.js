@@ -9,7 +9,6 @@
  */
 
 
-
 // The tests in this file are to get to know internals of CST, not really to test it.
 
 const tape = require('tape'),

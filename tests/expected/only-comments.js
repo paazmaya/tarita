@@ -1,14 +1,14 @@
-  /**
+/**
    * This file only contains comments, in different formats.
    */
-  // One liners
-  /*
+// One liners
+/*
   multi
   liners
   */
-  // Even with indentation
-  /*
+// Even with indentation
+/*
   such as
   these
   */
-  // // the end
+// // the end

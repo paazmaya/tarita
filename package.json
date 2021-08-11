@@ -42,18 +42,18 @@
     "npm": ">=7.0.0"
   },
   "dependencies": {
-    "cst": "^0.4.10",
-    "fs-extra": "^8.1.0",
-    "lebab": "^3.1.0",
-    "optionator": "^0.8.2"
+    "cst": "~0.4.10",
+    "fs-extra": "~8.1.0",
+    "lebab": "~3.1.0",
+    "optionator": "~0.8.2"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.3",
-    "codecov": "^3.5.0",
-    "eslint": "^6.3.0",
-    "eslint-config-paazmaya": "^6.0.0",
-    "espree": "^6.1.1",
-    "nyc": "^14.1.1",
-    "tape": "^4.11.0"
+    "codecov": "3.8.3",
+    "eslint": "7.32.0",
+    "eslint-config-paazmaya": "7.2.0",
+    "eslint-plugin-node": "11.1.0",
+    "espree": "6.1.1",
+    "nyc": "14.1.1",
+    "tape": "4.11.0"
   }
 }

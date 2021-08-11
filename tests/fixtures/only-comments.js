@@ -9,9 +9,9 @@ multi
 liners
 */
 
-    // Even with indentation
+// Even with indentation
 
-    /*
+/*
     such as
     these
     */
