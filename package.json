@@ -44,7 +44,7 @@
   "dependencies": {
     "cst": "~0.4.10",
     "fs-extra": "~8.1.0",
-    "lebab": "~3.1.0",
+    "lebab": "~3.1.1",
     "optionator": "~0.8.2"
   },
   "devDependencies": {
