@@ -127,10 +127,10 @@ const processExpression = (node) => {
   console.log('node.childElements.length: ' + node.childElements.length);
 
   // Imports should be placed at the top of the Program
-  const program = node.getOwnerProgram();
+  //const program = node.getOwnerProgram();
 
   node.childElements.map((item) => {
-    //console.log(item);
+    console.log(item);
     //return item.remove();
   });
 
@@ -165,7 +165,7 @@ const processExpression = (node) => {
     }
   }
 
-  return node;
+  return outputAst;
 };
 
 const MATCH_DEFINE = /^(define|require)$/u;
@@ -189,7 +189,7 @@ const process = (program) => {
     return ''; //processExpression(item);
   });
 
-  //console.dir(requireNodes);
+  console.dir(requireNodes);
 
   // TODO: Should somehow make sure that those Nodes end up in the tree
 
