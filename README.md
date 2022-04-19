@@ -2,9 +2,9 @@
 
 > Convert Require.js define to EcmaScript imports
 
-
 [![Build Status](https://app.travis-ci.com/paazmaya/tarita.svg?branch=master)](https://app.travis-ci.com/paazmaya/tarita)
 [![Windows Build Status](https://ci.appveyor.com/api/projects/status/5chh43ed57icvv33/branch/master?svg=true)](https://ci.appveyor.com/project/paazmaya/tarita)
+[![Node.js v14 CI](https://github.com/paazmaya/tarita/actions/workflows/linting-and-unit-testing.yml/badge.svg)](https://github.com/paazmaya/tarita/actions/workflows/linting-and-unit-testing.yml)
 [![codecov.io](https://codecov.io/github/paazmaya/tarita/coverage.svg?branch=master)](https://codecov.io/github/paazmaya/tarita?branch=master)
 
 Parsing to [Abstract Syntax Tree (AST)](https://github.com/estree/estree) happens with
